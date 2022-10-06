@@ -12,7 +12,7 @@ class window(QMainWindow):
         # Iniciar el objeto QMainWindow
         QMainWindow.__init__(self)
         # super(window, self).__init__()
-
+        self.setFixedSize(800, 600)
         # Cargar la config del archivo .ui en el objeto
         uic.loadUi("MainWindowCamposDeEntrada.ui", self)
 
