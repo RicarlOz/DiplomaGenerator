@@ -19,8 +19,8 @@ class DiplomaFields(QMainWindow):
         uic.loadUi("DiplomaFieldsScreen.ui", self)
 
         # Definir Widgets
-        self.lineEditTaller = self.findChild(QLineEdit, "lineEdit_2")
-        self.lineEditFecha = self.findChild(QLineEdit, "lineEdit")
+        self.lineEditTaller = self.findChild(QLineEdit, "tfName")
+        self.lineEditFecha = self.findChild(QLineEdit, "tfDate")
         self.pushButtonSaveNext = self.findChild(QPushButton, "pushButton")
 
         # Evento de Boton
@@ -39,6 +39,7 @@ class FileUpload(QDialog):
         uic.loadUi("FileUploadScreen.ui", self)
         self.btnChooseFileImg.clicked.connect(self.selectImg)
         self.btnChooseFileExcel.clicked.connect(self.selectExcel)
+        self.btnGoBack.clicked.connect(self.goBack)
 
     def selectImg(self):
         file = QtWidgets.QFileDialog.getOpenFileName()
@@ -53,6 +54,10 @@ class FileUpload(QDialog):
         fileName = path.split('/')[-1]
         self.lbFileNameExcel.setText(fileName)
         print(path)
+
+    def goBack(self):
+        print("Back to screen 1")
+        widget.setCurrentIndex(widget.currentIndex()-1)
         
 
 # Instancia para iniciar una aplicacion
