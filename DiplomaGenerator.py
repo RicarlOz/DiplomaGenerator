@@ -1,7 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLineEdit, QPushButton, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLineEdit, QPushButton, QDialog, QCheckBox
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
+from pyparsing import And
 
 nombreTaller = 'NA'
 fechaTaller = 'NA'
@@ -40,6 +41,7 @@ class FileUpload(QDialog):
         self.btnChooseFileImg.clicked.connect(self.selectImg)
         self.btnChooseFileExcel.clicked.connect(self.selectExcel)
         self.btnGoBack.clicked.connect(self.goBack)
+        self.btnPreviewTemplate.clicked.connect(self.previewTemplate)
 
     def selectImg(self):
         file = QtWidgets.QFileDialog.getOpenFileName()
@@ -59,6 +61,14 @@ class FileUpload(QDialog):
         print("Back to screen 1")
         widget.setCurrentIndex(widget.currentIndex()-1)
         
+    def previewTemplate(self):
+        if self.checkBoxCorreo.isChecked():
+            print("Los certificados se enviaran por correo")
+            # Llamar funcion enviar correos
+        
+        if self.checkBoxLocal.isChecked():
+            print("Los certificados se guardaran localmente")
+            # Llamar funcion guardar local
 
 # Instancia para iniciar una aplicacion
 app = QApplication(sys.argv)

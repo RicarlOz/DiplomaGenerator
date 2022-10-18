@@ -565,6 +565,20 @@ border-radius: 8px</string>
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="QCheckBox" name="checkBoxCorreo">
+       <property name="text">
+        <string>Enviar por correo automáticamente personas registradas en Excel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBoxLocal">
+       <property name="text">
+        <string>Guardar localmente</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="2" column="0">
