@@ -1,36 +1,39 @@
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton
+from PyQt5 import uic, QtWebEngineWidgets, QtCore
+from fpdf import FPDF
+# import PIL.Image as Image
+import pandas as pd
+import os
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLineEdit, QPushButton, QDialog, QCheckBox
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
-from pyparsing import And
+import time
+
 
 nombreTaller = 'NA'
 fechaTaller = 'NA'
 selectedTemplate = None
-selectedExcel = None
+df = None
+
 
 # Clase heredada de QMainWindow (Constructor de ventanas)
-class DiplomaFields(QMainWindow):
+class DiplomaFields(QDialog):
     def __init__(self):
-        # Iniciar el objeto QMainWindow
-        QMainWindow.__init__(self)
-        # super(window, self).__init__()
-        self.setFixedSize(800, 600)
+        super(DiplomaFields, self).__init__()
+
         # Cargar la config del archivo .ui en el objeto
         uic.loadUi("DiplomaFieldsScreen.ui", self)
 
         # Definir Widgets
-        self.lineEditTaller = self.findChild(QLineEdit, "tfName")
-        self.lineEditFecha = self.findChild(QLineEdit, "tfDate")
-        self.pushButtonSaveNext = self.findChild(QPushButton, "pushButton")
+        self.tfName = self.findChild(QLineEdit, "tfName")
+        self.tfDate = self.findChild(QLineEdit, "tfDate")
+        self.btnSubmit = self.findChild(QPushButton, "btnSubmit")
 
         # Evento de Boton
-        self.pushButtonSaveNext.clicked.connect(self.clicker)
+        self.btnSubmit.clicked.connect(self.submit)
     
-    def clicker(self):
+    def submit(self):
         # Guarda la informacion de taller y su fecha
-        nombreTaller = self.lineEditTaller.text()
-        fechaTaller = self.lineEditFecha.text()
+        nombreTaller = self.tfName.text()
+        fechaTaller = self.tfDate.text()
         print("El nombre del taller es " + nombreTaller + " y su fecha es " + fechaTaller)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
@@ -44,40 +47,117 @@ class FileUpload(QDialog):
         self.btnPreviewTemplate.clicked.connect(self.previewTemplate)
 
     def selectImg(self):
-        file = QtWidgets.QFileDialog.getOpenFileName()
+        file = QFileDialog.getOpenFileName()
         path = file[0]
+        file_extension = os.path.splitext(path)[1]
+
+        if path == "":
+            print("File not chosen.")
+            return
+
+        if file_extension not in [".png", ".jpg", ".jpeg"]:
+            QMessageBox.warning(self, "Archivo no soportado", "Los archivos soportados son: .png, .jpg y .jpeg.")
+            return
+            
         fileName = path.split('/')[-1]
         self.lbFileNameImg.setText(fileName)
         print(path)
 
     def selectExcel(self):
-        file = QtWidgets.QFileDialog.getOpenFileName()
+        global df
+
+        file = QFileDialog.getOpenFileName()
         path = file[0]
+        file_extension = os.path.splitext(path)[1]
+
+        if path == "":
+            print("File not chosen.")
+            return
+
+        if file_extension not in [".xlsx", ".xls", ".csv"]:
+            QMessageBox.warning(self, "Archivo no soportado.", "Los archivos soportados son: .xlsx, .xls y .csv.")
+            return
+
         fileName = path.split('/')[-1]
         self.lbFileNameExcel.setText(fileName)
+
+        if file_extension == ".csv":
+            df = pd.read_csv(path)
+        else:
+            df = pd.read_excel(path)
+
         print(path)
+        print(df)
 
     def goBack(self):
         print("Back to screen 1")
         widget.setCurrentIndex(widget.currentIndex()-1)
         
     def previewTemplate(self):
-        if self.checkBoxCorreo.isChecked():
-            print("Los certificados se enviaran por correo")
-            # Llamar funcion enviar correos
+        # if self.checkBoxCorreo.isChecked():
+        #     print("Los certificados se enviaran por correo")
+        #     # Llamar funcion enviar correos
         
-        if self.checkBoxLocal.isChecked():
-            print("Los certificados se guardaran localmente")
-            # Llamar funcion guardar local
+        # if self.checkBoxLocal.isChecked():
+        #     print("Los certificados se guardaran localmente")
+        #     # Llamar funcion guardar local
+        self.createPDF()
+        widget.addWidget(screen3)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def createPDF(self):
+        #Creates the PDF document
+        pdf = FPDF('L', 'mm', 'Letter')
+
+        #Set margins
+        pdf.set_margins(left=0, top=0, right=0)
+
+        #Add a page
+        pdf.add_page()
+
+        pdf.image("template.jpg", 0, 0, 279.4, 215.9)
+
+        pdf.output("diplomas.pdf")
+        time.sleep(1)
+
+class PreviewDiploma(QDialog):
+    def __init__(self):
+        super(PreviewDiploma, self).__init__()
+        uic.loadUi("PreviewDiploma.ui", self)
+
+        # Definir Widgets
+        self.btnBack = self.findChild(QPushButton, "btnBack")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+        self.pdfLayout = self.findChild(QVBoxLayout, "vlPDF")
+
+        pdfViewer = QtWebEngineWidgets.QWebEngineView()
+        self.pdfLayout.addWidget(pdfViewer)
+        # pdfViewer.setGeometry()
+        pdfViewer.settings().setAttribute(QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
+        pdfViewer.settings().setAttribute(QtWebEngineWidgets.QWebEngineSettings.PdfViewerEnabled, True)
+
+        path = os.path.join(os.path.abspath(os.getcwd()), "diplomas.pdf")
+        print(path)
+        pdfViewer.load(QtCore.QUrl.fromUserInput(path))
+        pdfViewer.reload()
+
+        self.btnBack.clicked.connect(self.goBack)
+
+    def goBack(self):
+        print("Back to screen 1")
+        widget.setCurrentIndex(widget.currentIndex()-1)
+        print(widget.children()[-1])
+
 
 # Instancia para iniciar una aplicacion
 app = QApplication(sys.argv)
 
-widget = QtWidgets.QStackedWidget()
+widget = QStackedWidget()
 
 # Crear el objeto de la clase
 screen1 = DiplomaFields()
 screen2 = FileUpload()
+screen3 = PreviewDiploma()
 
 widget.addWidget(screen1)
 widget.addWidget(screen2)
