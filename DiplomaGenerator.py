@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton
+from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit
 from PyQt5 import uic, QtWebEngineWidgets, QtCore
 from fpdf import FPDF
 # import PIL.Image as Image
@@ -6,7 +6,6 @@ import pandas as pd
 import os
 import sys
 import time
-
 
 nombreTaller = 'NA'
 fechaTaller = 'NA'
@@ -34,7 +33,8 @@ class DiplomaFields(QDialog):
         # Guarda la informacion de taller y su fecha
         nombreTaller = self.tfName.text()
         fechaTaller = self.tfDate.text()
-        print("El nombre del taller es " + nombreTaller + " y su fecha es " + fechaTaller)
+        descripcion = self.txtDescripcion.toPlainText()
+        print("El nombre del taller es " + nombreTaller + "la descripcion es " + descripcion + "y su fecha es " + fechaTaller)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FileUpload(QDialog):
