@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>931</width>
-    <height>589</height>
+    <width>883</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="palette">
@@ -579,13 +579,13 @@ border-radius: 10px</string>
          </property>
          <property name="minimumSize">
           <size>
-           <width>800</width>
+           <width>60</width>
            <height>25</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>800</width>
+           <width>600</width>
            <height>25</height>
           </size>
          </property>
@@ -601,8 +601,11 @@ border-radius: 10px</string>
          <property name="text">
           <string/>
          </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
+         </property>
          <property name="pixmap">
-          <pixmap>Labels.png</pixmap>
+          <pixmap>LabelColors.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
