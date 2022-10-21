@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>783</width>
-    <height>472</height>
+    <width>990</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="palette">
@@ -439,19 +439,6 @@
 background-color: rgb(132, 131, 130);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <layout class="QVBoxLayout" name="vlPDF">
-     <property name="leftMargin">
-      <number>50</number>
-     </property>
-     <property name="topMargin">
-      <number>50</number>
-     </property>
-     <property name="rightMargin">
-      <number>50</number>
-     </property>
-    </layout>
-   </item>
    <item row="0" column="0">
     <widget class="QFrame" name="frame">
      <property name="maximumSize">
@@ -502,8 +489,21 @@ background-color: rgb(132, 131, 130);</string>
      </layout>
     </widget>
    </item>
+   <item row="1" column="0">
+    <layout class="QVBoxLayout" name="vlPDF">
+     <property name="leftMargin">
+      <number>50</number>
+     </property>
+     <property name="topMargin">
+      <number>50</number>
+     </property>
+     <property name="rightMargin">
+      <number>50</number>
+     </property>
+    </layout>
+   </item>
    <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hlButtons">
      <item>
       <widget class="QPushButton" name="btnBack">
        <property name="sizePolicy">

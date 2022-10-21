@@ -632,7 +632,7 @@ border-radius: 10px</string>
         <number>50</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btnLeft">
          <property name="minimumSize">
           <size>
            <width>126</width>
@@ -665,7 +665,7 @@ border-radius: 10px</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnCenter">
          <property name="minimumSize">
           <size>
            <width>126</width>
@@ -698,7 +698,7 @@ border-radius: 10px</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btnRight">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
