@@ -94,15 +94,10 @@ class FileUpload(QDialog):
         widget.setCurrentIndex(widget.currentIndex()-1)
         
     def previewTemplate(self):
-        # if self.checkBoxCorreo.isChecked():
-        #     print("Los certificados se enviaran por correo")
-        #     # Llamar funcion enviar correos
-        
-        # if self.checkBoxLocal.isChecked():
-        #     print("Los certificados se guardaran localmente")
-        #     # Llamar funcion guardar local
         self.createPDF()
-        widget.addWidget(screen3)
+        if len(widget.children()) <= 3:
+            screen3 = PreviewDiploma()
+            widget.addWidget(screen3)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
@@ -115,10 +110,13 @@ class FileUpload(QDialog):
         #Add a page
         pdf.add_page()
 
-        pdf.image("template.jpg", 0, 0, 279.4, 215.9)
+        pdf.image("Design/design1.jpg", 0, 0, 279.4, 215.9)
+
+        pdf.set_xy(22, 76)
+        pdf.set_font('Arial', 'B', 16)
+        pdf.cell(165, 10, txt="RICARDO SERGIO GOMEZ CARDENAS", border=True, align='L')
 
         pdf.output("diplomas.pdf")
-        time.sleep(1)
 
 class PreviewDiploma(QDialog):
     def __init__(self):
@@ -146,7 +144,6 @@ class PreviewDiploma(QDialog):
     def goBack(self):
         print("Back to screen 1")
         widget.setCurrentIndex(widget.currentIndex()-1)
-        print(widget.children()[-1])
 
 
 # Instancia para iniciar una aplicacion
@@ -157,7 +154,6 @@ widget = QStackedWidget()
 # Crear el objeto de la clase
 screen1 = DiplomaFields()
 screen2 = FileUpload()
-screen3 = PreviewDiploma()
 
 widget.addWidget(screen1)
 widget.addWidget(screen2)
