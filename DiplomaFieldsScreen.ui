@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>778</width>
-    <height>582</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,13 +58,13 @@ border-radius: 10px</string>
       <number>50</number>
      </property>
      <property name="topMargin">
-      <number>50</number>
+      <number>10</number>
      </property>
      <property name="rightMargin">
       <number>50</number>
      </property>
      <property name="bottomMargin">
-      <number>0</number>
+      <number>2</number>
      </property>
      <item>
       <widget class="QLabel" name="label">
@@ -104,7 +104,7 @@ border-radius: 5px;</string>
       <number>50</number>
      </property>
      <property name="bottomMargin">
-      <number>39</number>
+      <number>11</number>
      </property>
      <item>
       <widget class="QLabel" name="lbName">
