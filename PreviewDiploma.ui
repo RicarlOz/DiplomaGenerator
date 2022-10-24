@@ -438,8 +438,8 @@
    <string notr="true">color: white;
 background-color: rgb(132, 131, 130);</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QFrame" name="frame">
      <property name="maximumSize">
       <size>
@@ -489,7 +489,7 @@ background-color: rgb(132, 131, 130);</string>
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <layout class="QVBoxLayout" name="vlPDF">
      <property name="leftMargin">
       <number>50</number>
@@ -502,7 +502,7 @@ background-color: rgb(132, 131, 130);</string>
      </property>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item>
     <layout class="QHBoxLayout" name="hlButtons">
      <item>
       <widget class="QPushButton" name="btnBack">

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Generador de Diplomas</string>
   </property>
   <property name="styleSheet">
    <string notr="true">color: white;
@@ -86,8 +86,10 @@ background-color: rgb(132, 131, 130);</string>
        </property>
        <item>
         <widget class="QLabel" name="lbName">
-         <property name="styleSheet">
-          <string notr="true">font-size: 20px</string>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>Nombre del evento</string>
@@ -129,7 +131,7 @@ border-radius: 5px;</string>
         <widget class="QLabel" name="lbDescription">
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="text">
@@ -161,8 +163,10 @@ border-radius: 5px;</string>
        </property>
        <item>
         <widget class="QLabel" name="lbAttachImg">
-         <property name="styleSheet">
-          <string notr="true">font-size: 20px</string>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
          </property>
          <property name="text">
           <string>Fecha del taller</string>
