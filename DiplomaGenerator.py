@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QDialog, QGridLayout, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QApplication, QDialog, QRadioButton, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit
 from PyQt5 import uic, QtWebEngineWidgets, QtCore
 from fpdf import FPDF
 # import PIL.Image as Image
@@ -51,6 +51,9 @@ class SeleccionTemplate(QDialog):
         self.btnLeft = self.findChild(QPushButton, "btnLeft")
         self.btnRight = self.findChild(QPushButton, "btnRight")
         self.btnCenter = self.findChild(QPushButton, "btnCenter")
+        self.rbLeft = self.findChild(QRadioButton, "rbLeft")
+        self.rbRight = self.findChild(QRadioButton, "rbRight")
+        self.rbCenter = self.findChild(QRadioButton, "rbCenter")
         self.btnNext = self.findChild(QPushButton, "btnNext")
         self.btnBack = self.findChild(QPushButton, "btnBack")
 
@@ -58,12 +61,22 @@ class SeleccionTemplate(QDialog):
         self.btnLeft.clicked.connect(lambda: self.selectTemplate('L'))
         self.btnRight.clicked.connect(lambda: self.selectTemplate('R'))
         self.btnCenter.clicked.connect(lambda: self.selectTemplate('C'))
+        # self.rbLeft.toggled.connect(lambda: self.selectTemplate('L'))
+        # self.rbRight.toggled.connect(lambda: self.selectTemplate('R'))
+        # self.rbCenter.toggled.connect(lambda: self.selectTemplate('C'))
         self.btnNext.clicked.connect(self.goNext)
         self.btnBack.clicked.connect(self.goBack)
 
     def selectTemplate(self, templateSelected):
         global templateDesign
+        print("Selected:", templateSelected)
         templateDesign = templateSelected
+        if templateSelected == 'L':
+            self.rbLeft.setChecked(True)
+        elif templateSelected == 'R':
+            self.rbRight.setChecked(True)
+        else:
+            self.rbCenter.setChecked(True)
 
     def goBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
@@ -89,7 +102,7 @@ class FileUpload(QDialog):
     def selectImg(self):
         global selectedImage
 
-        file = QFileDialog.getOpenFileName(filter="Imagenes(*.png *.jpg *.jpeg)")
+        file = QFileDialog.getOpenFileName(filter="*.png *.jpg *.jpeg")
         path = file[0]
         file_extension = os.path.splitext(path)[1]
 
@@ -110,7 +123,7 @@ class FileUpload(QDialog):
     def selectExcel(self):
         global df
 
-        file = QFileDialog.getOpenFileName(filter="Hoja de calculo(*.xlsx *.xls *.csv)")
+        file = QFileDialog.getOpenFileName(filter="*.xlsx *.xls *.csv")
         path = file[0]
         file_extension = os.path.splitext(path)[1]
 
