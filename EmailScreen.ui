@@ -92,7 +92,7 @@ background-color: rgb(132, 131, 130);</string>
           </font>
          </property>
          <property name="text">
-          <string>Nombre del evento</string>
+          <string>Subject</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -135,7 +135,7 @@ border-radius: 5px;</string>
           </font>
          </property>
          <property name="text">
-          <string>Descripción</string>
+          <string>Body</string>
          </property>
         </widget>
        </item>
@@ -143,46 +143,6 @@ border-radius: 5px;</string>
         <widget class="QTextEdit" name="tfDescription">
          <property name="autoFillBackground">
           <bool>true</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: black;
-background-color: white;
-border-radius: 5px;</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="vlDate">
-       <property name="topMargin">
-        <number>10</number>
-       </property>
-       <property name="bottomMargin">
-        <number>10</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="lbAttachImg">
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Fecha del taller</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="tfDate">
-         <property name="minimumSize">
-          <size>
-           <width>660</width>
-           <height>50</height>
-          </size>
          </property>
          <property name="styleSheet">
           <string notr="true">color: black;
