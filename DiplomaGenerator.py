@@ -192,32 +192,35 @@ class FileUpload(QDialog):
                 
             ## Right
             elif templateDesign == 'R':
-                pdf.set_font('Arial', 'B', 18)
-                pdf.set_xy(92, 82)
+                pdf.set_font('Arial', 'B', 25)
+                pdf.set_text_color(241, 194, 50)
+                pdf.set_xy(92 - 25, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
                 pdf.set_font('Arial', '', 14)
-                pdf.set_xy(92, 100)
+                pdf.set_text_color(255, 255, 255)
+                pdf.set_xy(92 - 25, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
                 pdf.set_font('Arial', '', 14)
-                pdf.set_xy(172, 150)
+                pdf.set_text_color(255, 255, 255)
+                pdf.set_xy(172 - 25, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
             ## Center
             else:
                 width = 170
                 pdf.set_font('Arial', 'B', 18)
-                pdf.set_xy((279.4 / 2 - width / 2), 95)
-                pdf.cell(width, 10, txt=row["Nombre"], border=True, align='C')
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+                pdf.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
                 pdf.set_font('Arial', '', 14)
-                pdf.set_xy((279.4 / 2 - width / 2), 110)
-                pdf.multi_cell(width, 5, txt=diplomaDescription, border=True, align='C')
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+                pdf.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
                 pdf.set_font('Arial', '', 14)
-                pdf.set_xy(180, 188)
-                pdf.cell(85, 15, txt=fechaTaller, border=True, align='C')
+                pdf.set_xy(180, 195)
+                pdf.cell(85, 15, txt=fechaTaller, border=False, align='C')
             
             if idx < len(df) - 1:
                 pdf.add_page()
