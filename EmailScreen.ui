@@ -73,7 +73,13 @@ background-color: rgb(132, 131, 130);</string>
      <property name="leftMargin">
       <number>50</number>
      </property>
+     <property name="topMargin">
+      <number>50</number>
+     </property>
      <property name="rightMargin">
+      <number>50</number>
+     </property>
+     <property name="bottomMargin">
       <number>50</number>
      </property>
      <item>
@@ -142,7 +148,7 @@ border-radius: 5px;</string>
        <item>
         <widget class="QTextEdit" name="tfDescription">
          <property name="autoFillBackground">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="styleSheet">
           <string notr="true">color: black;
@@ -157,6 +163,12 @@ border-radius: 5px;</string>
    </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="hlButton">
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="bottomMargin">
+      <number>15</number>
+     </property>
      <item>
       <widget class="QPushButton" name="btnSubmit">
        <property name="sizePolicy">

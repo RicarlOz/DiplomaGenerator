@@ -495,15 +495,21 @@ background-color: rgb(132, 131, 130);</string>
       <number>50</number>
      </property>
      <property name="topMargin">
-      <number>50</number>
+      <number>15</number>
      </property>
      <property name="rightMargin">
       <number>50</number>
+     </property>
+     <property name="bottomMargin">
+      <number>15</number>
      </property>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hlButtons">
+     <property name="bottomMargin">
+      <number>15</number>
+     </property>
      <item>
       <widget class="QPushButton" name="btnBack">
        <property name="sizePolicy">
@@ -526,7 +532,7 @@ background-color: rgb(132, 131, 130);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 108, 50);
+        <string notr="true">background-color: #242331;
 border-radius: 10px</string>
        </property>
        <property name="text">
