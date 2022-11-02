@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="newPrefix">
-    <file>Arrow2.png</file>
-    <file>csoftmty_logo.png</file>
-  </qresource>
-</RCC>
