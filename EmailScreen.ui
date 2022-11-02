@@ -106,7 +106,7 @@ background-color: rgb(132, 131, 130);</string>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="tfName">
+        <widget class="QLineEdit" name="tfSubject">
          <property name="minimumSize">
           <size>
            <width>660</width>
@@ -146,7 +146,7 @@ border-radius: 5px;</string>
         </widget>
        </item>
        <item>
-        <widget class="QTextEdit" name="tfDescription">
+        <widget class="QTextEdit" name="tfBody">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>

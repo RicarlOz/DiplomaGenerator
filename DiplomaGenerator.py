@@ -9,6 +9,8 @@ import time
 
 nombreTaller = 'NA'
 fechaTaller = 'NA'
+asuntoCorreo = 'NA'
+cuerpoCorreo = 'NA'
 diplomaDescription = ''
 templateDesign = None
 selectedImage = None
@@ -31,13 +33,11 @@ class DiplomaFields(QDialog):
         self.btnSubmit.clicked.connect(self.submit)
     
     def submit(self):
-        global diplomaDescription, fechaTaller, nombreTaller
-
         # Guarda la informacion de taller y su fecha
         nombreTaller = self.tfName.text()
         fechaTaller = self.tfDate.text()
         diplomaDescription = self.tfDescription.toPlainText()
-        print("El nombre del taller es " + nombreTaller + "la descripcion es " + diplomaDescription + "y su fecha es " + fechaTaller)
+        print("El nombre del taller es " + nombreTaller + " la descripcion es " + diplomaDescription + " y su fecha es " + fechaTaller)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class SeleccionTemplate(QDialog):
@@ -152,10 +152,6 @@ class FileUpload(QDialog):
         
     def previewTemplate(self):
         self.createPDF()
-        print(len(widget.children()))
-        if len(widget.children()) <= 4:
-            screen4 = PreviewDiploma()
-            widget.addWidget(screen4)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
@@ -249,10 +245,36 @@ class PreviewDiploma(QDialog):
         pdfViewer.reload()
 
         self.btnBack.clicked.connect(self.goBack)
+        self.btnNext.clicked.connect(self.sendMail)
+
 
     def goBack(self):
         print("Back to screen 1")
         widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def sendMail(self):
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+##tfName, tfDescription, btnSubmit
+class SendMail(QDialog):
+    def __init__(self):
+        super(SendMail, self).__init__()
+        uic.loadUi("EmailScreen.ui", self)
+
+        self.tfAsunto = self.findChild(QLineEdit, "tfSubject")
+        self.tfContenido = self.findChild(QTextEdit, "tfBody")
+        self.btnSubmit = self.findChild(QPushButton, "btnSubmit")
+
+        self.btnSubmit.clicked.connect(self.submit)
+
+    def submit(self):
+        asuntoCorreo = self.tfAsunto.text()
+        cuerpoCorreo = self.tfContenido.toPlainText()
+        print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
+        print("Mostrar siguiente pantalla")
+        # widget.setCurrentIndex(widget.currentIndex()+1)
+
+
 
 
 # Instancia para iniciar una aplicacion
@@ -264,10 +286,14 @@ widget = QStackedWidget()
 screen1 = DiplomaFields()
 screen2 = SeleccionTemplate()
 screen3 = FileUpload()
+screen4 = PreviewDiploma()
+screen5 = SendMail()
 
 widget.addWidget(screen1)
 widget.addWidget(screen2)
 widget.addWidget(screen3)
+widget.addWidget(screen4)
+widget.addWidget(screen5)
 
 # Mostrar la ventana
 # _window.show()
