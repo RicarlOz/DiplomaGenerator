@@ -568,8 +568,6 @@ border-radius: 10px</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="Assets.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
