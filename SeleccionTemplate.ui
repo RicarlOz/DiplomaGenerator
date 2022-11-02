@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>788</width>
-    <height>651</height>
+    <height>711</height>
    </rect>
   </property>
   <property name="palette">
@@ -148,6 +148,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -282,6 +291,15 @@
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
        </color>
       </brush>
      </colorrole>
@@ -422,6 +440,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
     </disabled>
    </palette>
   </property>
@@ -497,6 +524,9 @@ background-color: rgb(132, 131, 130);</string>
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="spacing">
+      <number>40</number>
+     </property>
      <property name="leftMargin">
       <number>50</number>
      </property>
@@ -507,7 +537,7 @@ background-color: rgb(132, 131, 130);</string>
       <number>50</number>
      </property>
      <property name="bottomMargin">
-      <number>100</number>
+      <number>70</number>
      </property>
      <item>
       <widget class="QLabel" name="label_2">
@@ -733,6 +763,27 @@ border-radius: 10px</string>
           </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>45</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="btnColor">
+         <property name="text">
+          <string>Seleccionar Color</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFontComboBox" name="fontBox">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

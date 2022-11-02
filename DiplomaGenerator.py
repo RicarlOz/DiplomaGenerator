@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QDialog, QRadioButton, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QApplication, QDialog, QRadioButton, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit, QFontComboBox
 from PyQt5 import uic, QtWebEngineWidgets, QtCore
 from fpdf import FPDF
 # import PIL.Image as Image
@@ -56,6 +56,8 @@ class SeleccionTemplate(QDialog):
         self.rbCenter = self.findChild(QRadioButton, "rbCenter")
         self.btnNext = self.findChild(QPushButton, "btnNext")
         self.btnBack = self.findChild(QPushButton, "btnBack")
+        self.btnColor = self.findChild(QPushButton, "btnColor")
+        self.fontBox = self.findChild(QFontComboBox, "fontBox" )
 
         # Evento de Boton
         self.btnLeft.clicked.connect(lambda: self.selectTemplate('L'))
@@ -82,12 +84,13 @@ class SeleccionTemplate(QDialog):
         widget.setCurrentIndex(widget.currentIndex()-1)
         
     def goNext(self):
-        global templateDesign
-
+        global templateDesign, fontText
+        fontText = self.fontBox.currentText()
         if templateDesign == None:
             QMessageBox.warning(self, "Diseño no seleccionado.", "Selecciona un diseño base para continuar.")
             return
         print("Selected template:", templateDesign)
+        print("El font elegido para el diploma es: " + fontText)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FileUpload(QDialog):
@@ -159,7 +162,7 @@ class FileUpload(QDialog):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
-        global templateDesign, diplomaDescription, fechaTaller, df
+        global templateDesign, diplomaDescription, fechaTaller, df, fontText
 
         #Creates the PDF document
         pdf = FPDF('L', 'mm', 'Letter')
@@ -173,36 +176,39 @@ class FileUpload(QDialog):
         #Add a page
         pdf.add_page()
 
+        #Add font
+        # pdf.add_font(fontText, "", 'C:\Windows\Fonts')
+
         for idx, row in df.iterrows():
             pdf.image(selectedImage, 0, 0, 279.4, 215.9)
 
             ## Left
             if templateDesign == 'L':
-                pdf.set_font('Arial', 'B', 18)
+                pdf.set_font(fontText, 'B', 18)
                 pdf.set_xy(24, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='L')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_xy(24, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_xy(24, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='L')
                 
             ## Right
             elif templateDesign == 'R':
-                pdf.set_font('Arial', 'B', 25)
+                pdf.set_font(fontText, 'B', 25)
                 pdf.set_text_color(241, 194, 50)
                 pdf.set_xy(92 - 25, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_text_color(255, 255, 255)
                 pdf.set_xy(92 - 25, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_text_color(255, 255, 255)
                 pdf.set_xy(172 - 25, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='R')
@@ -210,15 +216,15 @@ class FileUpload(QDialog):
             ## Center
             else:
                 width = 170
-                pdf.set_font('Arial', 'B', 18)
+                pdf.set_font(fontText, 'B', 18)
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
                 pdf.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
                 pdf.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
-                pdf.set_font('Arial', '', 14)
+                pdf.set_font(fontText, '', 14)
                 pdf.set_xy(180, 195)
                 pdf.cell(85, 15, txt=fechaTaller, border=False, align='C')
             
