@@ -177,6 +177,7 @@ class FileUpload(QDialog):
 
     def createPDF(self):
         global templateDesign, diplomaDescription, fechaTaller, df, fontText
+        print(fontText)
 
         #Creates the PDF document
         pdf = FPDF('L', 'mm', 'Letter')
@@ -191,7 +192,7 @@ class FileUpload(QDialog):
         pdf.add_page()
 
         #Add font
-        # pdf.add_font(fontText, "", 'C:\Windows\Fonts')
+        # pdf.add_font(fontText, "", 'C:\Windows\Fonts\\' + fontText + '.ttf')
 
         for idx, row in df.iterrows():
             pdf.image(selectedImage, 0, 0, 279.4, 215.9)
