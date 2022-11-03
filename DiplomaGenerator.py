@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QDialog, QRadioButton, QMessageBox, QFileDialog, QStackedWidget, QVBoxLayout, QLineEdit, QPushButton, QTextEdit, QFontComboBox
+from PyQt5.QtWidgets import *
 from PyQt5 import uic, QtWebEngineWidgets, QtCore
 from fpdf import FPDF
 import pandas as pd
@@ -9,13 +9,16 @@ import pprint
 nombreTaller = None
 fechaTaller = None
 diplomaDescription = None
-asuntoCorreo = 'NA'
-cuerpoCorreo = 'NA'
+asuntoCorreo = None
+cuerpoCorreo = None
 templateDesign = None
 selectedImage = None
 selectedData = None
 df = None
 screens = []
+
+fontText = None
+fontColor = None
 
 class DiplomaFields(QDialog):
     def __init__(self):
@@ -64,12 +67,13 @@ class SeleccionTemplate(QDialog):
         self.btnNext = self.findChild(QPushButton, "btnNext")
         self.btnBack = self.findChild(QPushButton, "btnBack")
         self.btnColor = self.findChild(QPushButton, "btnColor")
-        self.fontBox = self.findChild(QFontComboBox, "fontBox" )
+        self.fontBox = self.findChild(QFontComboBox, "fontBox")
 
         # Evento de Boton
         self.btnLeft.clicked.connect(lambda: self.selectTemplate('L'))
         self.btnRight.clicked.connect(lambda: self.selectTemplate('R'))
         self.btnCenter.clicked.connect(lambda: self.selectTemplate('C'))
+        self.btnColor.clicked.connect(self.selectColor)
         self.btnNext.clicked.connect(self.goNext)
         self.btnBack.clicked.connect(self.goBack)
 
@@ -83,6 +87,14 @@ class SeleccionTemplate(QDialog):
             self.rbRight.setChecked(True)
         else:
             self.rbCenter.setChecked(True)
+
+    def selectColor(self):
+        global fontColor
+        fontColor = QColorDialog.getColor()
+
+        if fontColor.isValid():
+            print(fontColor.name())
+            print(fontColor.getRgb())
 
     def goBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
