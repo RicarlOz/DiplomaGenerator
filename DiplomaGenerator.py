@@ -6,7 +6,7 @@ import os
 import sys
 import pprint
 import shutil
-from PIL import ImageColor
+from datetime import datetime
 
 nombreTaller = None
 fechaTaller = None
@@ -19,6 +19,7 @@ selectedData = None
 df = None
 libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbats']
 screens = []
+diplomasPath = None
 
 selectedFont = None
 fontColor = (0, 0, 0, 1)
@@ -235,7 +236,7 @@ class FileUpload(QDialog):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
-        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor, libraryFonts
+        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor, libraryFonts, diplomasPath
         print(selectedFont)
 
         #Creates the PDF document
@@ -257,7 +258,50 @@ class FileUpload(QDialog):
         #Set font color
         pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
 
+        now = datetime.now()
+
+        ##### Individual Diploma #####
+
+        dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
+
+        if nombreTaller in ['', None]:
+            diplomasPath = os.path.join(os.path.abspath(os.getcwd()), "Diplomas\\Evento " + dt_string + '\\')
+        else:
+            diplomasPath = os.path.join(os.path.abspath(os.getcwd()), "Diplomas\\" + nombreTaller + '\\')
+
+        print('==================================')
+        print(os.path.abspath(os.getcwd()))
+        print(diplomasPath)
+        print('==================================')
+        
+        if not os.path.exists(diplomasPath):
+            os.makedirs(diplomasPath)                
+        
+        ##### Individual Diploma #####
+
         for idx, row in df.iterrows():
+            ##### Individual Diploma #####
+
+            #Creates the PDF document
+            pdf_individual = FPDF('L', 'mm', 'Letter')
+
+            #Set margins
+            pdf_individual.set_margins(left=0, top=0, right=0)
+
+            #Disable auto page break
+            pdf_individual.set_auto_page_break(False)
+
+            #Add a page
+            pdf_individual.add_page()
+
+            #Add diploma image
+            pdf_individual.image(selectedImage, 0, 0, 279.4, 215.9)
+            
+            #Set font color
+            pdf_individual.set_text_color(fontColor[0], fontColor[1], fontColor[2])
+
+            ##### Individual Diploma #####
+
             pdf.image(selectedImage, 0, 0, 279.4, 215.9)
 
             ## Left
@@ -273,6 +317,22 @@ class FileUpload(QDialog):
                 pdf.set_font(selectedFont, '', 14)
                 pdf.set_xy(24, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='L')
+
+                ##### Individual Diploma #####
+
+                pdf_individual.set_font(selectedFont, '', 18)
+                pdf_individual.set_xy(24, 82)
+                pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='L')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy(24, 100)
+                pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy(24, 150)
+                pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='L')
+
+                ##### Individual Diploma #####
                 
             ## Right
             elif templateDesign == 'R':
@@ -288,6 +348,22 @@ class FileUpload(QDialog):
                 pdf.set_xy(172 - 25, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
+                ##### Individual Diploma #####
+
+                pdf_individual.set_font(selectedFont, '', 25)
+                pdf_individual.set_xy(92 - 25, 82)
+                pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='R')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy(92 - 25, 100)
+                pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy(172 - 25, 150)
+                pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='R')
+
+                ##### Individual Diploma #####
+
             ## Center
             else:
                 width = 170
@@ -302,11 +378,35 @@ class FileUpload(QDialog):
                 pdf.set_font(selectedFont, '', 14)
                 pdf.set_xy(180, 195)
                 pdf.cell(85, 15, txt=fechaTaller, border=False, align='C')
+
+                ##### Individual Diploma #####
+
+                pdf_individual.set_font(selectedFont, '', 18)
+                pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 120)
+                pdf_individual.cell(width, 10, txt=row["Nombre"], border=False, align='C')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 135)
+                pdf_individual.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
+
+                pdf_individual.set_font(selectedFont, '', 14)
+                pdf_individual.set_xy(180, 195)
+                pdf_individual.cell(85, 15, txt=fechaTaller, border=False, align='C')
+
+                ##### Individual Diploma #####
             
             if idx < len(df) - 1:
                 pdf.add_page()
+            
+            ##### Individual Diploma #####
+
+            pdf_individual.output(diplomasPath + row["Nombre"] + ' - ' + nombreTaller + '.pdf')
+            del pdf_individual
+
+            ##### Individual Diploma #####
 
         pdf.output("diplomas.pdf")
+        del pdf
 
 class PreviewDiploma(QDialog):
     def __init__(self):
@@ -336,9 +436,6 @@ class PreviewDiploma(QDialog):
 
     def goBack(self):
         print("Back to screen 1")
-        # pprint.pprint(widget.children())
-        # widget.removeWidget(screens[3])
-        # screens[3].deleteLater()
         pprint.pprint(widget.children())
         widget.setCurrentIndex(widget.currentIndex()-1)
 
@@ -374,7 +471,10 @@ class SendMailsQuestion(QDialog):
                 widget.addWidget(screen6)
             widget.setCurrentIndex(widget.currentIndex()+1)
         else:
-            pass
+            if len(widget.children()) <= 6:
+                screen7 = FinalScreen()
+                widget.addWidget(screen7)
+            widget.setCurrentIndex(widget.currentIndex()+1)
 
     def goBack(self):
         screens[3].reloadPDF()
@@ -406,6 +506,20 @@ class MailFields(QDialog):
         print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
         print("Mostrar siguiente pantalla")
         # widget.setCurrentIndex(widget.currentIndex()+1)
+
+class FinalScreen(QDialog):
+    def __init__(self):
+        super(FinalScreen, self).__init__()
+
+        # Cargar la config del archivo .ui en el objeto
+        uic.loadUi("ui/FinalScreen.ui", self)
+
+        # Definir Widgets
+        self.lbPath = self.findChild(QLabel, "lbPath")
+
+        self.lbPath.setText(os.getcwd() + diplomasPath)
+
+        os.startfile(diplomasPath)
 
 # Instancia para iniciar una aplicacion
 app = QApplication(sys.argv)
