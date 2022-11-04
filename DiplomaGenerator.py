@@ -21,7 +21,7 @@ libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbat
 screens = []
 
 selectedFont = None
-fontColor = None
+fontColor = (0, 0, 0, 1)
 
 class DiplomaFields(QDialog):
     def __init__(self):
@@ -111,8 +111,6 @@ class SeleccionTemplate(QDialog):
         fontColor = QColorDialog.getColor()
 
         if fontColor.isValid():
-            # print(fontColor.name())
-            # print(fontColor.getRgb())
             fontColor = fontColor.getRgb()
             self.btnColor.setStyleSheet(f'''background-color: rgb({fontColor[0]}, {fontColor[1]}, {fontColor[2]}); border-radius: 10px;''')
 
@@ -237,7 +235,7 @@ class FileUpload(QDialog):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
-        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor
+        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor, libraryFonts
         print(selectedFont)
 
         #Creates the PDF document
@@ -253,60 +251,55 @@ class FileUpload(QDialog):
         pdf.add_page()
 
         #Add font
-        # pdf.add_font(selectedFont, "", 'C:\Windows\Fonts\\' + selectedFont + '.ttf')
+        if not selectedFont in libraryFonts:
+            pdf.add_font(selectedFont, "", './fonts/' + selectedFont + '.ttf', True)
+
+        #Set font color
+        pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
 
         for idx, row in df.iterrows():
             pdf.image(selectedImage, 0, 0, 279.4, 215.9)
 
             ## Left
             if templateDesign == 'L':
-                pdf.set_font(selectedFont, 'B', 18)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
+                pdf.set_font(selectedFont, '', 18)
                 pdf.set_xy(24, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='L')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy(24, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy(24, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='L')
                 
             ## Right
             elif templateDesign == 'R':
-                pdf.set_font(selectedFont, 'B', 25)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
+                pdf.set_font(selectedFont, '', 25)
                 pdf.set_xy(92 - 25, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy(92 - 25, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy(172 - 25, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
             ## Center
             else:
                 width = 170
-                pdf.set_font(selectedFont, 'B', 18)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
+                pdf.set_font(selectedFont, '', 18)
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
                 pdf.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
                 pdf.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
                 pdf.set_font(selectedFont, '', 14)
-                pdf.set_text_color(int(fontColor[0]), int(fontColor[1]), int(fontColor[2]))
                 pdf.set_xy(180, 195)
                 pdf.cell(85, 15, txt=fechaTaller, border=False, align='C')
             
