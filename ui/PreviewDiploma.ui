@@ -526,7 +526,7 @@ background-color: rgb(132, 131, 130);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 108, 50);
+        <string notr="true">background-color: #242331;
 border-radius: 10px</string>
        </property>
        <property name="text">

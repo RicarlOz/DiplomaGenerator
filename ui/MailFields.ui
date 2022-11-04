@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>784</width>
-    <height>666</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -179,7 +179,7 @@ border-radius: 5px;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 108, 50);
+        <string notr="true">background-color: #242331;
 border-radius: 10px</string>
        </property>
        <property name="text">
