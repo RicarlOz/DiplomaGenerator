@@ -16,7 +16,6 @@ cuerpoCorreo = None
 templateDesign = None
 selectedImage = None
 selectedData = None
-selectedFont = None
 df = None
 libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbats']
 screens = []
@@ -114,11 +113,8 @@ class SeleccionTemplate(QDialog):
         if fontColor.isValid():
             # print(fontColor.name())
             # print(fontColor.getRgb())
-            fontColor = ImageColor.getcolor(fontColor.name(), "RGB")
-            fontColor = str(fontColor).replace("(", "")
-            fontColor = str(fontColor).replace(")", "")
-            fontColor = fontColor.split(",")
-            print(fontColor)
+            fontColor = fontColor.getRgb()
+            self.btnColor.setStyleSheet(f'''background-color: rgb({fontColor[0]}, {fontColor[1]}, {fontColor[2]}); border-radius: 10px;''')
 
     def addFont(self):
         global selectedFont, avaliab
