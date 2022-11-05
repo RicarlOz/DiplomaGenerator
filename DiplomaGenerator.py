@@ -490,12 +490,12 @@ class MailFields(QDialog):
         # Definir Widgets
         self.btnBack = self.findChild(QPushButton, "btnBack")
         self.btnNext = self.findChild(QPushButton, "btnNext")
-        self.tfAsunto = self.findChild(QLineEdit, "tfSubject")
-        self.tfContenido = self.findChild(QTextEdit, "tfBody")
-        self.btnSubmit = self.findChild(QPushButton, "btnSubmit")
+        self.tfAsunto = self.findChild(QLineEdit, "tfName")
+        self.tfContenido = self.findChild(QTextEdit, "tfDescription")
 
         # Evento de botón
         self.btnBack.clicked.connect(self.goBack)
+        self.btnNext.clicked.connect(self.submit)
         
     def goBack(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
@@ -504,8 +504,10 @@ class MailFields(QDialog):
         asuntoCorreo = self.tfAsunto.text()
         cuerpoCorreo = self.tfContenido.toPlainText()
         print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
-        print("Mostrar siguiente pantalla")
-        # widget.setCurrentIndex(widget.currentIndex()+1)
+        if len(widget.children()) <= 7:
+                screen7 = FinalScreen()
+                widget.addWidget(screen7)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FinalScreen(QDialog):
     def __init__(self):
