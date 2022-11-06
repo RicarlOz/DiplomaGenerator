@@ -7,7 +7,9 @@ import sys
 import pprint
 import shutil
 from datetime import datetime
+import yagmail
 
+password = ''
 nombreTaller = None
 fechaTaller = None
 diplomaDescription = None
@@ -19,6 +21,7 @@ selectedData = None
 df = None
 libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbats']
 screens = []
+mailStrings =[]
 diplomasPath = None
 
 selectedFont = None
@@ -503,6 +506,8 @@ class MailFields(QDialog):
     def submit(self):
         asuntoCorreo = self.tfAsunto.text()
         cuerpoCorreo = self.tfContenido.toPlainText()
+        yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
+        yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
         print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
         if len(widget.children()) <= 7:
                 screen7 = FinalScreen()

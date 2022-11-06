@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
+    <width>788</width>
     <height>666</height>
    </rect>
   </property>
@@ -85,70 +85,9 @@ background-color: rgb(132, 131, 130);</string>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="btnNo">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 108, 50);
-border-radius: 10px</string>
-       </property>
-       <property name="text">
-        <string>No</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnYes">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(237, 108, 50);
-border-radius: 10px</string>
-       </property>
-       <property name="text">
-        <string>Sí</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="bottomMargin">
+      <number>50</number>
+     </property>
      <item>
       <widget class="QPushButton" name="btnBack">
        <property name="sizePolicy">
@@ -175,7 +114,68 @@ border-radius: 10px</string>
 border-radius: 10px</string>
        </property>
        <property name="text">
-        <string>Regresar</string>
+        <string>Regresar a pantalla anterior</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnNo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(237, 108, 50);
+border-radius: 10px</string>
+       </property>
+       <property name="text">
+        <string>Guardar archivos solamente</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnYes">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 10px;
+background-color: #4361EE
+</string>
+       </property>
+       <property name="text">
+        <string>Enviar correos</string>
        </property>
       </widget>
      </item>
