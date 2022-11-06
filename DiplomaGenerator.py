@@ -214,9 +214,15 @@ class FileUpload(QDialog):
             df = pd.read_csv(path)
         else:
             df = pd.read_excel(path)
+            mails = pd.read_excel(path, usecols='B')
 
         print(path)
         print(df)
+
+        mailList = mails.values.tolist()
+        for sublist in mailList:
+            for item in sublist:
+                mailStrings.append(item)
 
     def goBack(self):
         print("Back to screen 1")
