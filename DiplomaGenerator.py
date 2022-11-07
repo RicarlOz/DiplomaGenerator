@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import uic, QtWebEngineWidgets, QtCore
+from PyQt5.QtGui import QRegExpValidator, QDoubleValidator, QValidator
+from PyQt5.QtCore import QRegExp
 from fpdf import FPDF
 import pandas as pd
 import os
@@ -18,6 +20,10 @@ cuerpoCorreo = None
 templateDesign = None
 selectedImage = None
 selectedData = None
+templateSize = None
+nombreSize = 18
+descriptionSize = 14
+fechaSize = 14
 df = None
 libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbats']
 screens = []
@@ -160,6 +166,64 @@ class SeleccionTemplate(QDialog):
         print("El font elegido para el diploma es: " + selectedFont)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
+class SeleccionSize(QDialog):
+    def __init__(self):
+        super(SeleccionSize, self).__init__()
+
+        # Cargar la config del archivo .ui en el objeto
+        uic.loadUi("ui/SeleccionSize.ui", self)
+
+        # Definir Widgets
+        self.btnCarta = self.findChild(QPushButton, "btnCarta")
+        self.btnOficio = self.findChild(QPushButton, "btnOficio")
+        self.btnA4 = self.findChild(QPushButton, "btnA4")
+        self.rbCarta = self.findChild(QRadioButton, "rbCarta")
+        self.rbOficio = self.findChild(QRadioButton, "rbOficio")
+        self.rbA4 = self.findChild(QRadioButton, "rbA4")
+        self.tfNombre = self.findChild(QLineEdit, "tfNombre")
+        self.tfDescripcion = self.findChild(QLineEdit, "tfDescripcion")
+        self.tfFechas = self.findChild(QLineEdit, "tfFechas")
+        self.btnBack = self.findChild(QPushButton, "btnBack")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+
+        # Evento de Boton
+        self.btnCarta.clicked.connect(lambda: self.selectSize('letter'))
+        self.btnOficio.clicked.connect(lambda: self.selectSize('legal'))
+        self.btnA4.clicked.connect(lambda: self.selectSize('a4'))
+        self.btnNext.clicked.connect(self.goNext)
+        self.btnBack.clicked.connect(self.goBack)
+
+
+    def selectSize(self, sizeSelected):
+        global templateSize
+        print("Selected:", sizeSelected)
+        templateSize = sizeSelected
+        if sizeSelected == 'letter':
+            self.rbCarta.setChecked(True)
+        elif sizeSelected == 'legal':
+            self.rbOficio.setChecked(True)
+        else:
+            self.rbA4.setChecked(True)
+
+    def goBack(self):
+        print("Back to screen 1")
+        widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def goNext(self):
+        global templateSize, nombreSize, descriptionSize, fechaSize
+        nombreSize = self.tfNombre.text()
+        descriptionSize = self.tfDescripcion.text()
+        fechaSize = self.tfFechas.text()
+        #checar por cuando lo paso a int deja de funcionar
+        if templateSize == None:
+            QMessageBox.warning(self, "Tamaño del Diploma no seleccionado.", "Selecciona un tamaño de diploma  para continuar.")
+            return
+        print("Selected size:", templateSize)
+        print("Tamaño fuente\nnombre: " + nombreSize + "\ndescripcion: " + descriptionSize + "\nfecha: " + fechaSize)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    def validating(self):
+        validation_rule = QDoubleValidator(2,150,0)
+
 class FileUpload(QDialog):
     def __init__(self):
         super(FileUpload, self).__init__()
@@ -237,19 +301,20 @@ class FileUpload(QDialog):
         
         self.createPDF()
         pprint.pprint(widget.children())
-        if len(screens) <= 3:
-            screen4 = PreviewDiploma()
-            screens.append(screen4)
-            widget.addWidget(screen4)
-        screens[3].reloadPDF()
+        if len(screens) <= 4:
+            screen5 = PreviewDiploma()
+            screens.append(screen5)
+            widget.addWidget(screen5)
+        screens[4].reloadPDF()
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
-        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor, libraryFonts, diplomasPath
+        global templateDesign, diplomaDescription, fechaTaller, df, selectedFont, fontColor, libraryFonts, diplomasPath, templateSize, nombreSize, descriptionSize, fechaSize
         print(selectedFont)
 
         #Creates the PDF document
-        pdf = FPDF('L', 'mm', 'Letter')
+        # pdf = FPDF('L', 'mm', 'Letter')
+        pdf = FPDF('L', 'mm', templateSize)
 
         #Set margins
         pdf.set_margins(left=0, top=0, right=0)
@@ -292,7 +357,8 @@ class FileUpload(QDialog):
             ##### Individual Diploma #####
 
             #Creates the PDF document
-            pdf_individual = FPDF('L', 'mm', 'Letter')
+            pdf_individual = FPDF('L', 'mm', templateSize)
+            # pdf_individual = FPDF('L', 'mm', 'Letter')
 
             #Set margins
             pdf_individual.set_margins(left=0, top=0, right=0)
@@ -401,7 +467,6 @@ class FileUpload(QDialog):
                 pdf_individual.set_font(selectedFont, '', 14)
                 pdf_individual.set_xy(180, 195)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=False, align='C')
-
                 ##### Individual Diploma #####
             
             if idx < len(df) - 1:
@@ -450,10 +515,10 @@ class PreviewDiploma(QDialog):
 
     def goNext(self):
         print(len(screens))
-        if len(screens) <= 4:
-            screen5 = SendMailsQuestion()
-            screens.append(screen5)
-            widget.addWidget(screen5)
+        if len(screens) <= 5:
+            screen6 = SendMailsQuestion()
+            screens.append(screen6)
+            widget.addWidget(screen6)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class SendMailsQuestion(QDialog):
@@ -475,19 +540,34 @@ class SendMailsQuestion(QDialog):
 
     def selectOption(self, sendMail):
         if sendMail:
-            if len(widget.children()) <= 6:
-                screen6 = MailFields()
-                widget.addWidget(screen6)
+            if len(widget.children()) <= 7:
+                screen7 = MailFields()
+                widget.addWidget(screen7)
             widget.setCurrentIndex(widget.currentIndex()+1)
         else:
-            if len(widget.children()) <= 6:
-                screen7 = FinalScreen()
-                widget.addWidget(screen7)
+            if len(widget.children()) <= 7:
+                screen8 = FinalScreen()
+                widget.addWidget(screen8)
             widget.setCurrentIndex(widget.currentIndex()+1)
 
     def goBack(self):
-        screens[3].reloadPDF()
+        screens[4].reloadPDF()
         widget.setCurrentIndex(widget.currentIndex()-1)
+    # def selectOption(self, sendMail):
+    #     if sendMail:
+    #         if len(widget.children()) <= 6:
+    #             screen6 = MailFields()
+    #             widget.addWidget(screen6)
+    #         widget.setCurrentIndex(widget.currentIndex()+1)
+    #     else:
+    #         if len(widget.children()) <= 6:
+    #             screen7 = FinalScreen()
+    #             widget.addWidget(screen7)
+    #         widget.setCurrentIndex(widget.currentIndex()+1)
+
+    # def goBack(self):
+    #     screens[3].reloadPDF()
+    #     widget.setCurrentIndex(widget.currentIndex()-1)
 
 class MailFields(QDialog):
     def __init__(self):
@@ -515,10 +595,20 @@ class MailFields(QDialog):
         yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
         yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
         print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
-        if len(widget.children()) <= 7:
-                screen7 = FinalScreen()
-                widget.addWidget(screen7)
+        if len(widget.children()) <= 8:
+                screen8 = FinalScreen()
+                widget.addWidget(screen8)
         widget.setCurrentIndex(widget.currentIndex()+1)
+    # def submit(self):
+    #     asuntoCorreo = self.tfAsunto.text()
+    #     cuerpoCorreo = self.tfContenido.toPlainText()
+    #     yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
+    #     yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
+    #     print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
+    #     if len(widget.children()) <= 7:
+    #             screen7 = FinalScreen()
+    #             widget.addWidget(screen7)
+    #     widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FinalScreen(QDialog):
     def __init__(self):
@@ -540,13 +630,18 @@ app = QApplication(sys.argv)
 widget = QStackedWidget()
 
 # Crear el objeto de la clase
+# screen1 = DiplomaFields()
+# screen2 = SeleccionTemplate()
+# screen3 = FileUpload()
 screen1 = DiplomaFields()
 screen2 = SeleccionTemplate()
-screen3 = FileUpload()
+screen3 = SeleccionSize()
+screen4 = FileUpload()
 
 screens.append(screen1)
 screens.append(screen2)
 screens.append(screen3)
+screens.append(screen4)
 
 for screen in screens:
     widget.addWidget(screen)
