@@ -78,6 +78,9 @@ background-color: rgb(132, 131, 130);</string>
      </property>
      <item>
       <layout class="QVBoxLayout" name="vlName">
+       <property name="spacing">
+        <number>5</number>
+       </property>
        <property name="topMargin">
         <number>10</number>
        </property>
@@ -117,6 +120,129 @@ border-radius: 5px;</string>
          </property>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btnColorEvento">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(237, 108, 50);
+border-radius: 10px</string>
+           </property>
+           <property name="text">
+            <string>Color</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cbFontEvento">
+           <property name="styleSheet">
+            <string notr="true">QComboBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QComboBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QComboBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbSizeEvento">
+           <property name="styleSheet">
+            <string notr="true">QSpinBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QSpinBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QSpinBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
      <item>
@@ -151,10 +277,141 @@ border-radius: 5px;</string>
          </property>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btnColorDesc">
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(237, 108, 50);
+border-radius: 10px</string>
+           </property>
+           <property name="text">
+            <string>Color</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFontComboBox" name="cbFontDesc">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QComboBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QComboBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbSizeDesc">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QSpinBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QSpinBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QSpinBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" name="vlDate">
+       <property name="spacing">
+        <number>6</number>
+       </property>
        <property name="topMargin">
         <number>10</number>
        </property>
@@ -191,12 +448,170 @@ border-radius: 5px;</string>
          </property>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btnColorDate">
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(237, 108, 50);
+border-radius: 10px</string>
+           </property>
+           <property name="text">
+            <string>Color</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFontComboBox" name="cbFontDate">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QComboBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QComboBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sbSizeDate">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>28</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QSpinBox{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px; 
+}
+
+QSpinBox::drop-down{
+    background-color: rgb(237, 108, 50);
+    border: none;
+    width: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+QSpinBox::down-arrow{
+    image: url(../images/chevron.png);
+    width: 14px;
+    height: 14px;
+}
+
+QListView{
+    border: none;
+    color: rgb(132, 131, 130);
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    selection-background-color: rgb(237, 108, 50);
+    show-decoration-selected: 1;
+    margin-left: -10px;
+    padding-left: 15px;
+}
+
+QListView::item:hover{
+    background-color: rgb(237, 108, 50);
+    border: none;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
     </layout>
    </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="hlButton">
+     <item>
+      <widget class="QPushButton" name="btnAddFont">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>60</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(93, 93, 93);
+border-radius: 10px</string>
+       </property>
+       <property name="text">
+        <string>Añadir fuente</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="btnSubmit">
        <property name="sizePolicy">

@@ -46,44 +46,20 @@ class DiplomaFields(QDialog):
         self.btnSubmit = self.findChild(QPushButton, "btnSubmit")
         self.tfDescription = self.findChild(QTextEdit, "tfDescription")
 
-        # Evento de Boton
-        self.btnSubmit.clicked.connect(self.submit)
-    
-    def submit(self):
-        global diplomaDescription, fechaTaller, nombreTaller
-        # Guarda la informacion de taller y su fecha
-        nombreTaller = self.tfName.text()
-        fechaTaller = self.tfDate.text()
-        diplomaDescription = self.tfDescription.toPlainText()
+        self.btnColorEvento = self.findChild(QPushButton, "btnColorEvento")
+        self.cbFontEvento = self.findChild(QComboBox, "cbFontEvento")
+        self.sbSizeEvento = self.findChild(QSpinBox, "sbSizeEvento")
 
-        # if nombreTaller == '' or fechaTaller == '' or diplomaDescription == '':
-        #     QMessageBox.warning(self, "Campos restantes.", "Llena la información de los campos para continuar.")
-        #     return
+        self.btnColorDesc = self.findChild(QPushButton, "btnColorDesc")
+        self.cbFontDesc = self.findChild(QComboBox, "cbFontDesc")
+        self.sbSizeDesc = self.findChild(QSpinBox, "sbSizeDesc")
 
-        print("El nombre del taller es " + nombreTaller + "la descripcion es " + diplomaDescription + "y su fecha es " + fechaTaller)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.btnColorDate = self.findChild(QPushButton, "btnColorDate")
+        self.cbFontDate = self.findChild(QComboBox, "cbFontDate")
+        self.sbSizeDate = self.findChild(QSpinBox, "sbSizeDate")
+        
 
-class SeleccionTemplate(QDialog):
-    def __init__(self):
-        super(SeleccionTemplate, self).__init__()
-        global libraryFonts
-
-        # Cargar la config del archivo .ui en el objeto
-        uic.loadUi("ui/SeleccionTemplate.ui", self)
-
-        # Definir Widgets
-        self.btnLeft = self.findChild(QPushButton, "btnLeft")
-        self.btnRight = self.findChild(QPushButton, "btnRight")
-        self.btnCenter = self.findChild(QPushButton, "btnCenter")
-        self.rbLeft = self.findChild(QRadioButton, "rbLeft")
-        self.rbRight = self.findChild(QRadioButton, "rbRight")
-        self.rbCenter = self.findChild(QRadioButton, "rbCenter")
-        self.btnNext = self.findChild(QPushButton, "btnNext")
-        self.btnBack = self.findChild(QPushButton, "btnBack")
-        self.btnColor = self.findChild(QPushButton, "btnColor")
         self.btnAddFont = self.findChild(QPushButton, "btnAddFont")
-        self.cbFont = self.findChild(QComboBox, "cbFont")
-
         self.availableFonts = libraryFonts
 
         if not os.path.exists("./fonts/"):
@@ -94,35 +70,28 @@ class SeleccionTemplate(QDialog):
                 self.availableFonts.append(font[:-4])
 
         self.availableFonts.sort()
-        self.cbFont.addItems(self.availableFonts)
+        self.cbFontEvento.addItems(self.availableFonts)
 
         # Evento de Boton
-        self.btnLeft.clicked.connect(lambda: self.selectTemplate('L'))
-        self.btnRight.clicked.connect(lambda: self.selectTemplate('R'))
-        self.btnCenter.clicked.connect(lambda: self.selectTemplate('C'))
-        self.btnColor.clicked.connect(self.selectColor)
+        self.btnSubmit.clicked.connect(self.submit)
+        self.btnColorEvento.clicked.connect(lambda: self.selectColor("Evento"))
+        self.btnColorDesc.clicked.connect(lambda: self.selectColor("Desc"))
+        self.btnColorDate.clicked.connect(lambda: self.selectColor("Date"))
         self.btnAddFont.clicked.connect(self.addFont)
-        self.btnNext.clicked.connect(self.goNext)
-        self.btnBack.clicked.connect(self.goBack)
 
-    def selectTemplate(self, templateSelected):
-        global templateDesign
-        print("Selected:", templateSelected)
-        templateDesign = templateSelected
-        if templateSelected == 'L':
-            self.rbLeft.setChecked(True)
-        elif templateSelected == 'R':
-            self.rbRight.setChecked(True)
-        else:
-            self.rbCenter.setChecked(True)
-
-    def selectColor(self):
-        global fontColor
+    def selectColor(self, type):
+        global fontColor, fontColorEvento, fontColorDesc, fontColorDate
         fontColor = QColorDialog.getColor()
 
-        if fontColor.isValid():
-            fontColor = fontColor.getRgb()
-            self.btnColor.setStyleSheet(f'''background-color: rgb({fontColor[0]}, {fontColor[1]}, {fontColor[2]}); border-radius: 10px;''')
+        if fontColor.isValid() and type=="Evento":
+            fontColorEvento = fontColor.getRgb()
+            self.btnColorEvento.setStyleSheet(f'''background-color: rgb({fontColorEvento[0]}, {fontColorEvento[1]}, {fontColorEvento[2]}); border-radius: 10px;''')
+        if fontColor.isValid() and type=="Desc":
+            fontColorDesc = fontColor.getRgb()
+            self.btnColorDesc.setStyleSheet(f'''background-color: rgb({fontColorDesc[0]}, {fontColorDesc[1]}, {fontColorDesc[2]}); border-radius: 10px;''')
+        if fontColor.isValid() and type=="Date":
+            fontColorDate = fontColor.getRgb()
+            self.btnColorDate.setStyleSheet(f'''background-color: rgb({fontColorDate[0]}, {fontColorDate[1]}, {fontColorDate[2]}); border-radius: 10px;''')
 
     def addFont(self):
         global selectedFont, avaliab
@@ -148,52 +117,72 @@ class SeleccionTemplate(QDialog):
             self.availableFonts.sort()
 
             # Reaload combobox
-            self.cbFont.clear()
+            self.cbFontEvento.clear()
             self.addItems(self.availableFonts)
 
-        self.cbFont.setCurrentIndex(self.availableFonts.index(fileName[:-4]))
+        self.cbFontEvento.setCurrentIndex(self.availableFonts.index(fileName[:-4]))
+    
+    def submit(self):
+        global diplomaDescription, fechaTaller, nombreTaller, selectedFont
+        # Guarda la informacion de taller y su fecha
+        selectedFont = self.cbFontEvento.currentText()
+        nombreTaller = self.tfName.text()
+        fechaTaller = self.tfDate.text()
+        diplomaDescription = self.tfDescription.toPlainText()
 
-    def goBack(self):
-        widget.setCurrentIndex(widget.currentIndex()-1)
-        
-    def goNext(self):
-        global templateDesign, selectedFont
-        selectedFont = self.cbFont.currentText()
-        if templateDesign == None:
-            QMessageBox.warning(self, "Diseño no seleccionado.", "Selecciona un diseño base para continuar.")
-            return
-        print("Selected template:", templateDesign)
+        # if nombreTaller == '' or fechaTaller == '' or diplomaDescription == '':
+        #     QMessageBox.warning(self, "Campos restantes.", "Llena la información de los campos para continuar.")
+        #     return
+
+        print("El nombre del taller es " + nombreTaller + "la descripcion es " + diplomaDescription + "y su fecha es " + fechaTaller)
         print("El font elegido para el diploma es: " + selectedFont)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
-class SeleccionSize(QDialog):
+class SeleccionTemplate(QDialog):
     def __init__(self):
-        super(SeleccionSize, self).__init__()
+        super(SeleccionTemplate, self).__init__()
+        global libraryFonts
 
         # Cargar la config del archivo .ui en el objeto
-        uic.loadUi("ui/SeleccionSize.ui", self)
+        uic.loadUi("ui/SeleccionTemplate.ui", self)
 
         # Definir Widgets
+        self.btnLeft = self.findChild(QPushButton, "btnLeft")
+        self.btnRight = self.findChild(QPushButton, "btnRight")
+        self.btnCenter = self.findChild(QPushButton, "btnCenter")
+        self.rbLeft = self.findChild(QRadioButton, "rbLeft")
+        self.rbRight = self.findChild(QRadioButton, "rbRight")
+        self.rbCenter = self.findChild(QRadioButton, "rbCenter")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+        self.btnBack = self.findChild(QPushButton, "btnBack")
         self.btnCarta = self.findChild(QPushButton, "btnCarta")
         self.btnOficio = self.findChild(QPushButton, "btnOficio")
         self.btnA4 = self.findChild(QPushButton, "btnA4")
         self.rbCarta = self.findChild(QRadioButton, "rbCarta")
         self.rbOficio = self.findChild(QRadioButton, "rbOficio")
         self.rbA4 = self.findChild(QRadioButton, "rbA4")
-        self.tfNombre = self.findChild(QLineEdit, "tfNombre")
-        self.tfDescripcion = self.findChild(QLineEdit, "tfDescripcion")
-        self.tfFechas = self.findChild(QLineEdit, "tfFechas")
-        self.btnBack = self.findChild(QPushButton, "btnBack")
-        self.btnNext = self.findChild(QPushButton, "btnNext")
 
         # Evento de Boton
+        self.btnLeft.clicked.connect(lambda: self.selectTemplate('L'))
+        self.btnRight.clicked.connect(lambda: self.selectTemplate('R'))
+        self.btnCenter.clicked.connect(lambda: self.selectTemplate('C'))
         self.btnCarta.clicked.connect(lambda: self.selectSize('letter'))
         self.btnOficio.clicked.connect(lambda: self.selectSize('legal'))
         self.btnA4.clicked.connect(lambda: self.selectSize('a4'))
         self.btnNext.clicked.connect(self.goNext)
         self.btnBack.clicked.connect(self.goBack)
 
-
+    def selectTemplate(self, templateSelected):
+        global templateDesign
+        print("Selected:", templateSelected)
+        templateDesign = templateSelected
+        if templateSelected == 'L':
+            self.rbLeft.setChecked(True)
+        elif templateSelected == 'R':
+            self.rbRight.setChecked(True)
+        else:
+            self.rbCenter.setChecked(True)
+    
     def selectSize(self, sizeSelected):
         global templateSize
         print("Selected:", sizeSelected)
@@ -204,6 +193,35 @@ class SeleccionSize(QDialog):
             self.rbOficio.setChecked(True)
         else:
             self.rbA4.setChecked(True)
+
+    def goBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
+        
+    def goNext(self):
+        global templateDesign
+        if templateDesign == None:
+            QMessageBox.warning(self, "Diseño no seleccionado.", "Selecciona un diseño base para continuar.")
+            return
+        print("Selected template:", templateDesign)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+class SeleccionSize(QDialog):
+    def __init__(self):
+        super(SeleccionSize, self).__init__()
+
+        # Cargar la config del archivo .ui en el objeto
+        uic.loadUi("ui/SeleccionSize.ui", self)
+
+        # Definir Widgets
+        self.tfNombre = self.findChild(QLineEdit, "tfNombre")
+        self.tfDescripcion = self.findChild(QLineEdit, "tfDescripcion")
+        self.tfFechas = self.findChild(QLineEdit, "tfFechas")
+        self.btnBack = self.findChild(QPushButton, "btnBack")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+
+        # Evento de Boton
+        self.btnNext.clicked.connect(self.goNext)
+        self.btnBack.clicked.connect(self.goBack)
 
     def goBack(self):
         print("Back to screen 1")
@@ -330,7 +348,7 @@ class FileUpload(QDialog):
             pdf.add_font(selectedFont, "", './fonts/' + selectedFont + '.ttf', True)
 
         #Set font color
-        pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
+        #pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
 
         now = datetime.now()
 
@@ -373,7 +391,7 @@ class FileUpload(QDialog):
             pdf_individual.image(selectedImage, 0, 0, 279.4, 215.9)
             
             #Set font color
-            pdf_individual.set_text_color(fontColor[0], fontColor[1], fontColor[2])
+            #pdf_individual.set_text_color(fontColor[0], fontColor[1], fontColor[2])
 
             ##### Individual Diploma #####
 
@@ -382,28 +400,34 @@ class FileUpload(QDialog):
             ## Left
             if templateDesign == 'L':
                 pdf.set_font(selectedFont, '', 18)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf.set_xy(24, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='L')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf.set_xy(24, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf.set_xy(24, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='L')
 
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFont, '', 18)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy(24, 82)
                 pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='L')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(24, 100)
                 pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(24, 150)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='L')
 
@@ -412,28 +436,34 @@ class FileUpload(QDialog):
             ## Right
             elif templateDesign == 'R':
                 pdf.set_font(selectedFont, '', 25)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf.set_xy(92 - 25, 82)
                 pdf.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf.set_xy(92 - 25, 100)
                 pdf.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf.set_xy(172 - 25, 150)
                 pdf.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFont, '', 25)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy(92 - 25, 82)
                 pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(92 - 25, 100)
                 pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf_individual.set_xy(172 - 25, 150)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
@@ -443,28 +473,34 @@ class FileUpload(QDialog):
             else:
                 width = 170
                 pdf.set_font(selectedFont, '', 18)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
                 pdf.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
                 pdf.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
                 pdf.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf.set_xy(180, 195)
                 pdf.cell(85, 15, txt=fechaTaller, border=False, align='C')
 
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFont, '', 18)
+                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 120)
                 pdf_individual.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 135)
                 pdf_individual.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
                 pdf_individual.set_font(selectedFont, '', 14)
+                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf_individual.set_xy(180, 195)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=False, align='C')
                 ##### Individual Diploma #####

@@ -148,6 +148,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -285,6 +294,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
     </inactive>
     <disabled>
      <colorrole role="WindowText">
@@ -419,6 +437,15 @@
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="PlaceholderText">
+      <brush brushstyle="NoBrush">
+       <color alpha="128">
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
        </color>
       </brush>
      </colorrole>
@@ -585,6 +612,16 @@ background-color: rgb(132, 131, 130);</string>
        </property>
        <item>
         <layout class="QGridLayout" name="gridLayout_3">
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="rbLeft">
+           <property name="text">
+            <string/>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">btnGroupOrientacion</string>
+           </attribute>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QPushButton" name="btnLeft">
            <property name="minimumSize">
@@ -618,13 +655,6 @@ border-radius: 10px</string>
              <width>250</width>
              <height>100</height>
             </size>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QRadioButton" name="rbLeft">
-           <property name="text">
-            <string/>
            </property>
           </widget>
          </item>
@@ -673,6 +703,9 @@ border-radius: 10px</string>
            <property name="text">
             <string/>
            </property>
+           <attribute name="buttonGroup">
+            <string notr="true">btnGroupOrientacion</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -726,6 +759,9 @@ border-radius: 10px</string>
            <property name="text">
             <string/>
            </property>
+           <attribute name="buttonGroup">
+            <string notr="true">btnGroupOrientacion</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -750,121 +786,195 @@ border-radius: 10px</string>
           </font>
          </property>
          <property name="text">
-          <string>Fuente</string>
+          <string>Tamaño</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="spacing">
-          <number>45</number>
+        <widget class="QLabel" name="label_8">
+         <property name="maximumSize">
+          <size>
+           <width>700</width>
+           <height>30</height>
+          </size>
          </property>
-         <item>
-          <widget class="QPushButton" name="btnColor">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(237, 108, 50);
-border-radius: 10px</string>
-           </property>
-           <property name="text">
-            <string>Color</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="cbFont">
-           <property name="styleSheet">
-            <string notr="true">QComboBox{
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    padding: 5px; 
-}
-
-QComboBox::drop-down{
-    background-color: rgb(237, 108, 50);
-    border: none;
-    width: 25px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-QComboBox::down-arrow{
-    image: url(../images/chevron.png);
-    width: 14px;
-    height: 14px;
-}
-
-QListView{
-    border: none;
-    color: rgb(132, 131, 130);
-    background-color: rgb(255, 255, 255);
-    font-weight: bold;
-    selection-background-color: rgb(237, 108, 50);
-    show-decoration-selected: 1;
-    margin-left: -10px;
-    padding-left: 15px;
-}
-
-QListView::item:hover{
-    background-color: rgb(237, 108, 50);
-    border: none;
-}</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../images/sizes.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1">
+         <property name="spacing">
+          <number>30</number>
+         </property>
          <item>
-          <widget class="QPushButton" name="btnAddFont">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(237, 108, 50);
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnCarta">
+             <property name="minimumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);
 border-radius: 10px</string>
-           </property>
-           <property name="text">
-            <string>Añadir fuente</string>
-           </property>
-          </widget>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../images/Carta.png</normaloff>../images/Carta.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>250</width>
+               <height>100</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="rbCarta">
+             <property name="text">
+              <string/>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">btnGroupTamaSize</string>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnA4">
+             <property name="minimumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../images/A4.png</normaloff>../images/A4.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>200</width>
+               <height>100</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="rbA4">
+             <property name="text">
+              <string/>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">btnGroupTamaSize</string>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnOficio">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>126</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>../images/Oficio.png</normaloff>../images/Oficio.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>250</width>
+               <height>100</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="rbOficio">
+             <property name="text">
+              <string/>
+             </property>
+             <attribute name="buttonGroup">
+              <string notr="true">btnGroupTamaSize</string>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -940,4 +1050,8 @@ border-radius: 10px</string>
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="btnGroupOrientacion"/>
+  <buttongroup name="btnGroupTamaSize"/>
+ </buttongroups>
 </ui>
