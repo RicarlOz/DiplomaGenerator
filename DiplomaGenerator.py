@@ -319,11 +319,11 @@ class FileUpload(QDialog):
         
         self.createPDF()
         pprint.pprint(widget.children())
-        if len(screens) <= 4:
+        if len(screens) <= 3:
             screen5 = PreviewDiploma()
             screens.append(screen5)
             widget.addWidget(screen5)
-        screens[4].reloadPDF()
+        screens[3].reloadPDF()
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def createPDF(self):
@@ -551,10 +551,10 @@ class PreviewDiploma(QDialog):
 
     def goNext(self):
         print(len(screens))
-        if len(screens) <= 5:
-            screen6 = SendMailsQuestion()
-            screens.append(screen6)
-            widget.addWidget(screen6)
+        if len(screens) <= 4:
+            screen5 = SendMailsQuestion()
+            screens.append(screen5)
+            widget.addWidget(screen5)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class SendMailsQuestion(QDialog):
@@ -576,18 +576,18 @@ class SendMailsQuestion(QDialog):
 
     def selectOption(self, sendMail):
         if sendMail:
-            if len(widget.children()) <= 7:
-                screen7 = MailFields()
-                widget.addWidget(screen7)
+            if len(widget.children()) <= 6:
+                screen6 = MailFields()
+                widget.addWidget(screen6)
             widget.setCurrentIndex(widget.currentIndex()+1)
         else:
-            if len(widget.children()) <= 7:
-                screen8 = FinalScreen()
-                widget.addWidget(screen8)
+            if len(widget.children()) <= 6:
+                screen7 = FinalScreen()
+                widget.addWidget(screen7)
             widget.setCurrentIndex(widget.currentIndex()+1)
 
     def goBack(self):
-        screens[4].reloadPDF()
+        screens[3].reloadPDF()
         widget.setCurrentIndex(widget.currentIndex()-1)
     # def selectOption(self, sendMail):
     #     if sendMail:
@@ -631,9 +631,9 @@ class MailFields(QDialog):
         yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
         yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
         print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
-        if len(widget.children()) <= 8:
-                screen8 = FinalScreen()
-                widget.addWidget(screen8)
+        if len(widget.children()) <= 7:
+                screen7 = FinalScreen()
+                widget.addWidget(screen7)
         widget.setCurrentIndex(widget.currentIndex()+1)
     # def submit(self):
     #     asuntoCorreo = self.tfAsunto.text()
@@ -671,13 +671,11 @@ widget = QStackedWidget()
 # screen3 = FileUpload()
 screen1 = DiplomaFields()
 screen2 = SeleccionTemplate()
-screen3 = SeleccionSize()
-screen4 = FileUpload()
+screen3 = FileUpload()
 
 screens.append(screen1)
 screens.append(screen2)
 screens.append(screen3)
-screens.append(screen4)
 
 for screen in screens:
     widget.addWidget(screen)
