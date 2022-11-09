@@ -121,6 +121,18 @@ border-radius: 5px;</string>
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Nombre</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="bottomMargin">
           <number>2</number>
@@ -306,13 +318,7 @@ border-radius: 10px</string>
           </widget>
          </item>
          <item>
-          <widget class="QFontComboBox" name="cbFontDesc">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>28</height>
-            </size>
-           </property>
+          <widget class="QComboBox" name="cbFontDesc">
            <property name="styleSheet">
             <string notr="true">QComboBox{
     border: none;
@@ -477,13 +483,7 @@ border-radius: 10px</string>
           </widget>
          </item>
          <item>
-          <widget class="QFontComboBox" name="cbFontDate">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>28</height>
-            </size>
-           </property>
+          <widget class="QComboBox" name="cbFontDate">
            <property name="styleSheet">
             <string notr="true">QComboBox{
     border: none;
