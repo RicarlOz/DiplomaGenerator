@@ -675,7 +675,7 @@ class MailFields(QDialog):
             payload.set_payload((attach_file).read())
             encoders.encode_base64(payload) #encode the attachment
             #add payload header with filename
-            payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
+            payload.add_header('Content-Disposition', 'attachment', filename=attach_file_name)
             message.attach(payload)
             #Create SMTP session for sending the mail
             session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
