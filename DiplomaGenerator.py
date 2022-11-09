@@ -9,8 +9,13 @@ import sys
 import pprint
 import shutil
 from datetime import datetime
-import yagmail
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
+correo = 'csoftdiplomagendev@gmail.com'
 password = ''
 nombreTaller = None
 fechaTaller = None
@@ -27,7 +32,9 @@ fechaSize = 14
 df = None
 libraryFonts = ['Arial', 'Courier', 'Helvetica', 'Symbol', 'Times', 'ZapfDingbats']
 screens = []
-mailStrings =[]
+nameMailList =[]
+nameList = []
+testMails = ['csoftdiplomagendev@gmail.com', 'csoftdiplomagendev@gmail.com', 'csoftdiplomagendev@gmail.com', 'csoftdiplomagendev@gmail.com']
 diplomasPath = None
 
 selectedFont = None
@@ -328,10 +335,12 @@ class FileUpload(QDialog):
         print(path)
         print(df)
 
-        mailList = mails.values.tolist()
-        for sublist in mailList:
-            for item in sublist:
-                mailStrings.append(item)
+        mailList = df.values.tolist()
+        for item in mailList:
+            nameMailList.append(item)
+
+        for item in nameMailList:
+            nameList.append(item[0])
 
     def goBack(self):
         print("Back to screen 1")
@@ -622,21 +631,6 @@ class SendMailsQuestion(QDialog):
     def goBack(self):
         screens[3].reloadPDF()
         widget.setCurrentIndex(widget.currentIndex()-1)
-    # def selectOption(self, sendMail):
-    #     if sendMail:
-    #         if len(widget.children()) <= 6:
-    #             screen6 = MailFields()
-    #             widget.addWidget(screen6)
-    #         widget.setCurrentIndex(widget.currentIndex()+1)
-    #     else:
-    #         if len(widget.children()) <= 6:
-    #             screen7 = FinalScreen()
-    #             widget.addWidget(screen7)
-    #         widget.setCurrentIndex(widget.currentIndex()+1)
-
-    # def goBack(self):
-    #     screens[3].reloadPDF()
-    #     widget.setCurrentIndex(widget.currentIndex()-1)
 
 class MailFields(QDialog):
     def __init__(self):
@@ -661,23 +655,43 @@ class MailFields(QDialog):
     def submit(self):
         asuntoCorreo = self.tfAsunto.text()
         cuerpoCorreo = self.tfContenido.toPlainText()
-        yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
-        yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
-        print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
+        i = 0
+        while i < len(nameList):
+            message = MIMEMultipart()
+            message['From'] = correo
+            message.attach(MIMEText(cuerpoCorreo, 'html'))
+            print(nameList)
+            print(i)
+            subj = asuntoCorreo + nameList[i]
+            message['Subject'] = subj
+            print(message['Subject'])
+            message['To'] = testMails[i]
+            #The body and the attachments for the mail
+            pdfFilePath = diplomasPath + nameList[i] + ' - ' + nombreTaller + '.pdf'
+            print(pdfFilePath)
+            attach_file_name = pdfFilePath
+            attach_file = open(attach_file_name, 'rb') # Open the file as binary mode
+            payload = MIMEBase('application', 'octate-stream')
+            payload.set_payload((attach_file).read())
+            encoders.encode_base64(payload) #encode the attachment
+            #add payload header with filename
+            payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
+            message.attach(payload)
+            #Create SMTP session for sending the mail
+            session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+            session.starttls() #enable security
+            session.login(correo, password) #login with mail_id and password
+            text = message.as_string()
+            #print(correo, testMails[i], text)
+            session.sendmail(correo, testMails[i], text)
+            session.quit()
+            print('Mail Sent')
+            del message
+            i+=1
         if len(widget.children()) <= 7:
                 screen7 = FinalScreen()
                 widget.addWidget(screen7)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    # def submit(self):
-    #     asuntoCorreo = self.tfAsunto.text()
-    #     cuerpoCorreo = self.tfContenido.toPlainText()
-    #     yag = yagmail.SMTP('csoftdiplomagendev@gmail.com', password)
-    #     yag.send(subject = asuntoCorreo, contents = cuerpoCorreo)
-    #     print("El asunto del correo es: " + asuntoCorreo + " el contenido del correo es: " + cuerpoCorreo)
-    #     if len(widget.children()) <= 7:
-    #             screen7 = FinalScreen()
-    #             widget.addWidget(screen7)
-    #     widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FinalScreen(QDialog):
     def __init__(self):
@@ -699,9 +713,6 @@ app = QApplication(sys.argv)
 widget = QStackedWidget()
 
 # Crear el objeto de la clase
-# screen1 = DiplomaFields()
-# screen2 = SeleccionTemplate()
-# screen3 = FileUpload()
 screen1 = DiplomaFields()
 screen2 = SeleccionTemplate()
 screen3 = FileUpload()
