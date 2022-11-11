@@ -452,17 +452,17 @@ class FileUpload(QDialog):
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFontEvento, '', sbSizeEvento)
-                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
+                pdf_individual.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy(24, 82)
                 pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='L')
 
                 pdf_individual.set_font(selectedFontDesc, '', sbSizeDesc)
-                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
+                pdf_individual.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(24, 100)
                 pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='L')
 
                 pdf_individual.set_font(selectedFontDate, '', sbSizeDate)
-                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
+                pdf_individual.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(24, 150)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='L')
 
@@ -488,17 +488,17 @@ class FileUpload(QDialog):
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFontEvento, '', sbSizeEvento)
-                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
+                pdf_individual.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy(92 - 25, 82)
                 pdf_individual.cell(165, 10, txt=row["Nombre"], border=True, align='R')
 
                 pdf_individual.set_font(selectedFontDesc, '', sbSizeDesc)
-                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
+                pdf_individual.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy(92 - 25, 100)
                 pdf_individual.multi_cell(165, 5, txt=diplomaDescription, border=True, align='R')
 
                 pdf_individual.set_font(selectedFontDate, '', sbSizeDate)
-                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
+                pdf_individual.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf_individual.set_xy(172 - 25, 150)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=True, align='R')
 
@@ -525,17 +525,17 @@ class FileUpload(QDialog):
                 ##### Individual Diploma #####
 
                 pdf_individual.set_font(selectedFontEvento, '', sbSizeEvento)
-                pdf.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
+                pdf_individual.set_text_color(fontColorEvento[0], fontColorEvento[1], fontColorEvento[2])
                 pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 120)
                 pdf_individual.cell(width, 10, txt=row["Nombre"], border=False, align='C')
 
                 pdf_individual.set_font(selectedFontDesc, '', sbSizeDesc)
-                pdf.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
+                pdf_individual.set_text_color(fontColorDesc[0], fontColorDesc[1], fontColorDesc[2])
                 pdf_individual.set_xy((279.4 / 2 - width / 2) + 10, 135)
                 pdf_individual.multi_cell(width, 5, txt=diplomaDescription, border=False, align='C')
 
                 pdf_individual.set_font(selectedFontDate, '', sbSizeDate)
-                pdf.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
+                pdf_individual.set_text_color(fontColorDate[0], fontColorDate[1], fontColorDate[2])
                 pdf_individual.set_xy(180, 195)
                 pdf_individual.cell(85, 15, txt=fechaTaller, border=False, align='C')
                 ##### Individual Diploma #####
