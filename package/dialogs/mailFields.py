@@ -56,38 +56,42 @@ class MailFields(QDialog):
 
         asuntoCorreo = self.tfAsunto.text()
         cuerpoCorreo = self.tfContenido.toPlainText()
-        i = 0
-        while i < len(self.nameList):
+        
+        for name, mail in list(zip(self.nameList, self.mailingList)):
             message = MIMEMultipart()
             message['From'] = self.correo
+
             message.attach(MIMEText(cuerpoCorreo, 'html'))
-            subj = asuntoCorreo + ' ' + self.nameList[i]
+            subj = asuntoCorreo + ' ' + name
             message['Subject'] = subj
-            message['To'] = self.mailingList[i]
-            #The body and the attachments for the mail
-            pdfFilePath = self.diplomasPath + self.nameList[i] + ' - ' + self.nombreTaller + '.pdf'
+            message['To'] = mail
+
+            # Body and attachments for the mail
+            pdfFilePath = self.diplomasPath + name + ' - ' + self.nombreTaller + '.pdf'
             print(pdfFilePath)
-            print(self.nameList[i])
+            print(name)
             attach_file_name = pdfFilePath
             attach_file = open(attach_file_name, 'rb') # Open the file as binary mode
             payload = MIMEBase('application', 'octate-stream')
             payload.set_payload((attach_file).read())
             encoders.encode_base64(payload) #encode the attachment
-            #add payload header with filename
+            
+            # Add payload header with filename
             payload.add_header('Content-Disposition', 'attachment', filename='Diploma.pdf')
             message.attach(payload)
-            #Create SMTP session for sending the mail
+
+            # Create SMTP session for sending the mail
             session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
             session.starttls() #enable security
-            #print(self.correo, self.password)
+            
             session.login(self.correo, self.password) #login with mail_id and password
             text = message.as_string()
-            session.sendmail(self.correo, self.mailingList[i], text)
-            print("Sending to: " + self.mailingList[i])
+            session.sendmail(self.correo, mail, text)
+            print("Sending to: " + mail)
             session.quit()
             print('Mail Sent')
-            del message
-            i+=1
+
+            del message, session
         
         self.nextScreen.openFolder()
         self.screenController.setCurrentWidget(self.nextScreen)

@@ -109,37 +109,31 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
     if not os.path.exists(diplomasPath):
         os.makedirs(diplomasPath)                
 
-    #Creates the PDF document
-    pdf = FPDF('L', 'mm', pdfSize)
-    # pdf = FPDF('L', 'mm', 'Letter')
-
-    #Set margins
-    pdf.set_margins(left=0, top=0, right=0)
-
-    #Disable auto page break
-    pdf.set_auto_page_break(False)
-
-    #Add a page
-    pdf.add_page()
-
-    #Add diploma image
-    pdf.image(imgDesign, 0, 0, 279.4, 215.9)
-    
-    #Set font color
-    #pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
-
-    #Add font
-    if not namesAttributes.font in libraryFonts:
-        pdf.add_font(namesAttributes.font, "", 'package/fonts/' + namesAttributes.font + '.ttf', True)
-    
-    if not descriptionAttributes.font in libraryFonts:
-        pdf.add_font(descriptionAttributes.font, "", 'package/fonts/' + descriptionAttributes.font + '.ttf', True)
-
-    if not dateAttributes.font in libraryFonts:
-        pdf.add_font(dateAttributes.font, "", 'package/fonts/' + dateAttributes.font + '.ttf', True)
-
     for name in names:
+        #Creates the PDF document
+        pdf = FPDF('L', 'mm', pdfSize)
+        # pdf = FPDF('L', 'mm', 'Letter')
 
+        #Set margins
+        pdf.set_margins(left=0, top=0, right=0)
+
+        #Disable auto page break
+        pdf.set_auto_page_break(False)
+
+        #Add a page
+        pdf.add_page()
+
+        #Add font
+        if not namesAttributes.font in libraryFonts:
+            pdf.add_font(namesAttributes.font, "", 'package/fonts/' + namesAttributes.font + '.ttf', True)
+        
+        if not descriptionAttributes.font in libraryFonts:
+            pdf.add_font(descriptionAttributes.font, "", 'package/fonts/' + descriptionAttributes.font + '.ttf', True)
+
+        if not dateAttributes.font in libraryFonts:
+            pdf.add_font(dateAttributes.font, "", 'package/fonts/' + dateAttributes.font + '.ttf', True)
+
+        #Add image
         pdf.image(imgDesign, 0, 0, 279.4, 215.9)
 
         ## Left
@@ -200,5 +194,3 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
         pdf.output(diplomasPath + name + ' - ' + eventName + '.pdf')
         
     return diplomasPath
-
-    

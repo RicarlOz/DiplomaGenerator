@@ -163,4 +163,57 @@ class FileUpload(QDialog):
 
         df_templates.to_csv("package/templates/templatesList.csv", index=False)        
 
+        # Save template
+        if not os.path.exists("package/templates/"):
+            os.makedirs("package/templates/")
+        
+        if not os.path.exists("package/templateImages/"):
+            os.makedirs("package/templateImages/")
+        
+        fileName = self.imgDesignPath.split('/')[-1]
+        shutil.copyfile(self.imgDesignPath, "package/templateImages/" + fileName)
+
+        data = {
+            "NombreTaller" : self.nombreTaller,
+            "ImageDesign": "package/templateImages/" + fileName,
+            "PDFSize": self.pdfSize,
+            "PDFOrientation": self.orientation,
+            "NombreFont": self.namesAttributes.font, 
+            "NombreColor": self.namesAttributes.color, 
+            "NombreSize": self.namesAttributes.size, 
+            "DescripcionText": self.descriptionAttributes.text,
+            "DescripcionFont": self.descriptionAttributes.font,
+            "DescripcionColor": self.descriptionAttributes.color, 
+            "DescripcionSize": self.descriptionAttributes.size,
+            "DateText": self.dateAttributes.text,
+            "DateFont": self.dateAttributes.font,
+            "DateColor": self.dateAttributes.color, 
+            "DateSize": self.dateAttributes.size
+        }
+
+        if os.path.exists("package/templates/templatesList.csv"):
+            df_templates = pd.read_csv("package/templates/templatesList.csv")
+            df_templates.loc[len(df_templates)] = data
+        else:
+            df_templates = pd.DataFrame(columns=[
+                "NombreTaller",
+                "ImageDesign",
+                "PDFSize",
+                "PDFOrientation",
+                "NombreFont", 
+                "NombreColor", 
+                "NombreSize", 
+                "DescripcionText",
+                "DescripcionFont",
+                "DescripcionColor", 
+                "DescripcionSize",
+                "DateText",
+                "DateFont",
+                "DateColor", 
+                "DateSize"
+            ])
+            df_templates.loc[len(df_templates)] = data
+
+        df_templates.to_csv("package/templates/templatesList.csv", index=False)        
+
         self.screenController.setCurrentWidget(self.nextScreen)
