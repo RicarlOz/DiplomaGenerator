@@ -15,8 +15,6 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
-correo = 'csoftdiplomagendev@gmail.com'
-password = ''
 nombreTaller = None
 fechaTaller = None
 diplomaDescription = None
@@ -402,11 +400,6 @@ class FileUpload(QDialog):
             diplomasPath = os.path.join(os.path.abspath(os.getcwd()), "Diplomas\\Evento " + dt_string + '\\')
         else:
             diplomasPath = os.path.join(os.path.abspath(os.getcwd()), "Diplomas\\" + nombreTaller + '\\')
-
-        print('==================================')
-        print(os.path.abspath(os.getcwd()))
-        print(diplomasPath)
-        print('==================================')
         
         if not os.path.exists(diplomasPath):
             os.makedirs(diplomasPath)                
@@ -619,7 +612,7 @@ class SendMailsQuestion(QDialog):
     def selectOption(self, sendMail):
         if sendMail:
             if len(widget.children()) <= 6:
-                screen6 = MailFields()
+                screen6 = MailAccount()
                 widget.addWidget(screen6)
             widget.setCurrentIndex(widget.currentIndex()+1)
         else:
@@ -660,37 +653,64 @@ class MailFields(QDialog):
             message = MIMEMultipart()
             message['From'] = correo
             message.attach(MIMEText(cuerpoCorreo, 'html'))
-            print(nameList)
-            print(i)
             subj = asuntoCorreo + nameList[i]
             message['Subject'] = subj
-            print(message['Subject'])
             message['To'] = testMails[i]
             #The body and the attachments for the mail
             pdfFilePath = diplomasPath + nameList[i] + ' - ' + nombreTaller + '.pdf'
-            print(pdfFilePath)
             attach_file_name = pdfFilePath
             attach_file = open(attach_file_name, 'rb') # Open the file as binary mode
             payload = MIMEBase('application', 'octate-stream')
             payload.set_payload((attach_file).read())
             encoders.encode_base64(payload) #encode the attachment
             #add payload header with filename
-            payload.add_header('Content-Disposition', 'attachment', filename=attach_file_name)
+            payload.add_header('Content-Disposition', 'attachment', filename='Diploma.pdf')
             message.attach(payload)
             #Create SMTP session for sending the mail
             session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
             session.starttls() #enable security
+            print(correo, password)
             session.login(correo, password) #login with mail_id and password
             text = message.as_string()
-            #print(correo, testMails[i], text)
             session.sendmail(correo, testMails[i], text)
             session.quit()
             print('Mail Sent')
             del message
             i+=1
-        if len(widget.children()) <= 7:
-                screen7 = FinalScreen()
-                widget.addWidget(screen7)
+        if len(widget.children()) <= 8:
+                screen8 = FinalScreen()
+                widget.addWidget(screen8)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+class MailAccount(QDialog):
+    def __init__(self):
+        super(MailAccount, self).__init__()
+
+        uic.loadUi("ui/AccountInformation.ui", self)
+
+        self.tfMail = self.findChild(QLineEdit, "tfCorreo")
+        self.tfClave = self.findChild(QLineEdit, "tfPwd")
+        self.btnBack = self.findChild(QPushButton, "btnBack")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+        
+        
+        self.btnBack.clicked.connect(self.goBack)
+        self.btnNext.clicked.connect(self.submit)
+
+    def goBack(self):
+        widget.setCurrentIndex(widget.currentIndex()-1)
+
+    def submit(self):
+        global correo, password
+        correo = self.tfMail.text()
+        password = self.tfClave.text()        
+        if correo == '' or password == '':
+            correo = 'csoftdiploma@gmail.com'
+            password = 'onzqmrumyggsdkak'    
+
+        if len(widget.children()) <= 8:
+                screen8 = MailFields()
+                widget.addWidget(screen8)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class FinalScreen(QDialog):
@@ -702,10 +722,15 @@ class FinalScreen(QDialog):
 
         # Definir Widgets
         self.lbPath = self.findChild(QLabel, "lbPath")
+        self.btnNext = self.findChild(QPushButton, "btnSubmit")
 
         self.lbPath.setText(os.getcwd() + diplomasPath)
+        self.btnNext.clicked.connect(self.endApp)
 
         os.startfile(diplomasPath)
+
+    def endApp(self):
+        exit(1)
 
 # Instancia para iniciar una aplicacion
 app = QApplication(sys.argv)
