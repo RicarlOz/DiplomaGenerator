@@ -54,7 +54,7 @@ background-color: rgb(132, 131, 130);</string>
         <widget class="QLabel" name="lbPath">
          <property name="font">
           <font>
-           <family>Yu Gothic UI</family>
+           <family>Calibri</family>
            <pointsize>12</pointsize>
           </font>
          </property>

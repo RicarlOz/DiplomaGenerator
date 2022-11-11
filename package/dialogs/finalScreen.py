@@ -11,6 +11,9 @@ class FinalScreen(QDialog):
 
         # Definir Widgets
         self.lbPath = self.findChild(QLabel, "lbPath")
+        self.btnNext = self.findChild(QPushButton, "btnNext")
+        
+        self.btnNext.clicked.connect(self.goNext)
 
     def setDiplomasPath(self, diplomasPath):
         self.diplomasPath = diplomasPath
@@ -23,9 +26,6 @@ class FinalScreen(QDialog):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
-
-    def goBack(self):
-        self.screenController.setCurrentWidget(self.previousScreen)
 
     def goNext(self):
         self.screenController.setCurrentWidget(self.nextScreen)

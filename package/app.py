@@ -57,7 +57,7 @@ screen1_1.setNavigation(screenController, previousScreen = screen0, nextScreen =
 screen1_2.setNavigation(screenController, previousScreen = screen1_1, nextScreen = screen1_3)
 screen1_3.setNavigation(screenController, previousScreen = screen1_2, nextScreen = screen1_4, mailScreen = screen1_7, finalScreen = screen1_8)
 screen1_4.setNavigation(screenController, previousScreen = screen1_3, nextScreen = screen1_5)
-screen1_5.setNavigation(screenController, previousScreen = screen1_4, mailScreen = screen1_6, finalScreen = screen1_7)
+screen1_5.setNavigation(screenController, previousScreen = screen1_4, mailScreen = screen1_6, finalScreen = screen1_8)
 screen1_6.setNavigation(screenController, previousScreen = screen1_5, nextScreen = screen1_7)
 screen1_7.setNavigation(screenController, previousScreen = screen1_6, nextScreen = screen1_8)
 screen1_8.setNavigation(screenController, previousScreen = screen1_5, nextScreen = screen0)

@@ -1,0 +1,3 @@
+NombreTaller,ImageDesign,PDFSize,PDFOrientation,NombreFont,NombreColor,NombreSize,DescripcionText,DescripcionFont,DescripcionColor,DescripcionSize,DateText,DateFont,DateColor,DateSize
+MAXIEVENTO,package/templateImages/AxtaTeen.jpg,Letter,C,Arial,"(0, 0, 255, 255)",20,,Helvetica,"(85, 255, 255, 255)",10,,Courier,"(255, 0, 0, 255)",5
+MAXIEVENTO,package/templateImages/AxtaTeen.jpg,Letter,C,Arial,"(0, 0, 255, 255)",20,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",Helvetica,"(85, 255, 255, 255)",10,MTY N.L. 11/11/2022,Courier,"(255, 0, 0, 255)",5

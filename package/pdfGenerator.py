@@ -36,9 +36,6 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
     if not dateAttributes.font in libraryFonts:
         pdf.add_font(dateAttributes.font, "", 'package/fonts/' + dateAttributes.font + '.ttf', True)
 
-    #Set font color
-    #pdf.set_text_color(fontColor[0], fontColor[1], fontColor[2])
-
     for name in names:
 
         pdf.image(imgDesign, 0, 0, 279.4, 215.9)

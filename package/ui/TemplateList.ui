@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
-    <height>630</height>
+    <width>954</width>
+    <height>655</height>
    </rect>
   </property>
   <property name="palette">
@@ -490,17 +490,22 @@ background-color: rgb(132, 131, 130);</string>
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="vlPDF">
-     <property name="leftMargin">
-      <number>100</number>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>100</number>
-     </property>
-    </layout>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>930</width>
+        <height>476</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="hlButtons">

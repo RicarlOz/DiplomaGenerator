@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>788</width>
-    <height>666</height>
+    <width>793</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,6 +72,7 @@ background-color: rgb(132, 131, 130);</string>
     <widget class="QLabel" name="lbAttachImg">
      <property name="font">
       <font>
+       <family>Yu Gothic UI</family>
        <pointsize>14</pointsize>
       </font>
      </property>
@@ -104,7 +105,8 @@ background-color: rgb(132, 131, 130);</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>Yu Gothic UI</family>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -134,7 +136,8 @@ border-radius: 10px</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>Yu Gothic UI</family>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -164,7 +167,8 @@ border-radius: 10px</string>
        </property>
        <property name="font">
         <font>
-         <pointsize>9</pointsize>
+         <family>Yu Gothic UI</family>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
