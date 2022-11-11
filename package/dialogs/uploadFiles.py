@@ -6,6 +6,7 @@ import pandas as pd
 
 nameMailList = []
 nameList = []
+mailingList = []
 
 class FileUpload(QDialog):
     def __init__(self):
@@ -88,21 +89,24 @@ class FileUpload(QDialog):
         for item in nameMailList:
             nameList.append(item[0])
 
+        for item in nameMailList:
+            mailingList.append(item[1])
+
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
         
     def previewTemplate(self):
-        global nameList, nameMailList
+        global nameList, nameMailList, mailingList
 
         if self.imgDesignPath == None or self.ssPath == None:
             QMessageBox.warning(self, "Archivo no seleccionado.", "Selecciona los archivos para continuar.")
             return
         
-        previewPDF(self.df['Nombre'].to_list(), self.namesAttributes, self.descriptionAttributes, self.dateAttributes, self.imgDesignPath, self.pdfSize, self.orientation)
-        self.diplomasPath = individualPDFs(self.nombreTaller, self.df['Nombre'].to_list(), self.namesAttributes, self.descriptionAttributes, self.dateAttributes, self.imgDesignPath, self.pdfSize, self.orientation)
+        previewPDF(nameList, self.namesAttributes, self.descriptionAttributes, self.dateAttributes, self.imgDesignPath, self.pdfSize, self.orientation)
+        self.diplomasPath = individualPDFs(self.nombreTaller, nameList, self.namesAttributes, self.descriptionAttributes, self.dateAttributes, self.imgDesignPath, self.pdfSize, self.orientation)
 
         self.nextScreen.reloadPDF()
         self.finalScreen.setDiplomasPath(self.diplomasPath)
-        self.mailScreen.setData(self.diplomasPath, nameList, nameMailList, self.nombreTaller)
+        self.mailScreen.setData(self.diplomasPath, nameList, nameMailList, self.nombreTaller, mailingList)
 
         self.screenController.setCurrentWidget(self.nextScreen)

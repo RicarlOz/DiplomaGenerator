@@ -41,9 +41,10 @@ class MailFields(QDialog):
     def setPassword(self, password):
         self.password = password
 
-    def setData(self, diplomasPath, nameList, nameMailList, nombreTaller):
+    def setData(self, diplomasPath, nameList, nameMailList, nombreTaller, mailingList):
         self.diplomasPath = diplomasPath
         self.nameList = nameList
+        self.mailingList = mailingList
         self.nameMailList = nameMailList
         self.nombreTaller = nombreTaller
         
@@ -60,11 +61,13 @@ class MailFields(QDialog):
             message = MIMEMultipart()
             message['From'] = self.correo
             message.attach(MIMEText(cuerpoCorreo, 'html'))
-            subj = asuntoCorreo + self.nameList[i]
+            subj = asuntoCorreo + ' ' + self.nameList[i]
             message['Subject'] = subj
-            message['To'] = testMails[i]
+            message['To'] = self.mailingList[i]
             #The body and the attachments for the mail
             pdfFilePath = self.diplomasPath + self.nameList[i] + ' - ' + self.nombreTaller + '.pdf'
+            print(pdfFilePath)
+            print(self.nameList[i])
             attach_file_name = pdfFilePath
             attach_file = open(attach_file_name, 'rb') # Open the file as binary mode
             payload = MIMEBase('application', 'octate-stream')
@@ -76,10 +79,11 @@ class MailFields(QDialog):
             #Create SMTP session for sending the mail
             session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
             session.starttls() #enable security
-            print(self.correo, self.password)
+            #print(self.correo, self.password)
             session.login(self.correo, self.password) #login with mail_id and password
             text = message.as_string()
-            session.sendmail(self.correo, testMails[i], text)
+            session.sendmail(self.correo, self.mailingList[i], text)
+            print("Sending to: " + self.mailingList[i])
             session.quit()
             print('Mail Sent')
             del message
