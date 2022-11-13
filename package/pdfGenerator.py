@@ -37,8 +37,14 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
         pdf.add_font(dateAttributes.font, "", 'package/fonts/' + dateAttributes.font + '.ttf', True)
 
     for name in names:
-
-        pdf.image(imgDesign, 0, 0, 279.4, 215.9)
+        
+        #Add image
+        if pdfSize == 'Letter':
+            pdf.image(imgDesign, 0, 0, 279.4, 215.9)
+        elif pdfSize == 'Legal':
+            pdf.image(imgDesign, 0, 0, 356, 216)
+        else: #A4
+            pdf.image(imgDesign, 0, 0, 297, 210)
 
         ## Left
         if orientation == 'L':
@@ -134,7 +140,12 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
             pdf.add_font(dateAttributes.font, "", 'package/fonts/' + dateAttributes.font + '.ttf', True)
 
         #Add image
-        pdf.image(imgDesign, 0, 0, 279.4, 215.9)
+        if pdfSize == 'Letter':
+            pdf.image(imgDesign, 0, 0, 279.4, 215.9)
+        elif pdfSize == 'Legal':
+            pdf.image(imgDesign, 0, 0, 356, 216)
+        else: #A4
+            pdf.image(imgDesign, 0, 0, 297, 210)
 
         ## Left
         if orientation == 'L':

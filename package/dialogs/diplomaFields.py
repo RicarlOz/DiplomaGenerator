@@ -107,8 +107,8 @@ class DiplomaFields(QDialog):
 
         fileName = path.split('/')[-1]
 
-        if not os.path.isfile("./fonts/" + fileName):
-            shutil.copy(path, "./fonts/")
+        if not os.path.isfile("package/fonts/" + fileName):
+            shutil.copy(path, "package/fonts/")
 
             self.availableFonts.append(fileName[:-4])
             self.availableFonts.sort()

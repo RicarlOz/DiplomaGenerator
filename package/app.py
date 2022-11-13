@@ -8,6 +8,7 @@ from package.dialogs.sendMailQuestion import SendMailsQuestion
 from package.dialogs.mailFields import MailFields
 from package.dialogs.mailAccount import MailAccount
 from package.dialogs.finalScreen import FinalScreen
+from package.dialogs.templateList import TemplateList
 import sys
 
 class MainWindow(QMainWindow):
@@ -31,7 +32,7 @@ class MainWindow(QMainWindow):
         screenController.setCurrentWidget(screen1_1)
 
     def editDiploma(self):
-        pass
+        screenController.setCurrentWidget(screen2_1)
 
     def exit(self):
         sys.exit()
@@ -52,6 +53,7 @@ screen1_5 = SendMailsQuestion()
 screen1_6 = MailAccount()
 screen1_7 = MailFields()
 screen1_8 = FinalScreen()
+screen2_1 = TemplateList()
 
 screen1_1.setNavigation(screenController, previousScreen = screen0, nextScreen = screen1_2)
 screen1_2.setNavigation(screenController, previousScreen = screen1_1, nextScreen = screen1_3)
@@ -61,6 +63,8 @@ screen1_5.setNavigation(screenController, previousScreen = screen1_4, mailScreen
 screen1_6.setNavigation(screenController, previousScreen = screen1_5, nextScreen = screen1_7)
 screen1_7.setNavigation(screenController, previousScreen = screen1_6, nextScreen = screen1_8)
 screen1_8.setNavigation(screenController, previousScreen = screen1_5, nextScreen = screen0)
+
+screen2_1.setNavigation(screenController, previousScreen = screen0, nextScreen = None)
 
 # Main screen
 screenController.addWidget(screen0)
@@ -76,6 +80,7 @@ screenController.addWidget(screen1_7)
 screenController.addWidget(screen1_8)
 
 # Edit diploma process
+screenController.addWidget(screen2_1)
 
 screenController.show()
 
