@@ -57,6 +57,9 @@ class MailFields(QDialog):
         asuntoCorreo = self.tfAsunto.text()
         cuerpoCorreo = self.tfContenido.toPlainText()
         
+        f = open(self.diplomasPath + "log.txt", "a+")
+        f.write("Correo enviado a: \n")
+
         for name, mail in list(zip(self.nameList, self.mailingList)):
             message = MIMEMultipart()
             message['From'] = self.correo
@@ -68,8 +71,6 @@ class MailFields(QDialog):
 
             # Body and attachments for the mail
             pdfFilePath = self.diplomasPath + name + ' - ' + self.nombreTaller + '.pdf'
-            print(pdfFilePath)
-            print(name)
             attach_file_name = pdfFilePath
             attach_file = open(attach_file_name, 'rb') # Open the file as binary mode
             payload = MIMEBase('application', 'octate-stream')
@@ -87,11 +88,12 @@ class MailFields(QDialog):
             session.login(self.correo, self.password) #login with mail_id and password
             text = message.as_string()
             session.sendmail(self.correo, mail, text)
-            print("Sending to: " + mail)
+            f.write(name + ' ' + mail + "\n")
             session.quit()
-            print('Mail Sent')
 
             del message, session
-        
+    
+        f.close()
+
         self.nextScreen.openFolder()
         self.screenController.setCurrentWidget(self.nextScreen)
