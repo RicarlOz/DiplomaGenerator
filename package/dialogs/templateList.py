@@ -6,17 +6,16 @@ class TemplateList(QDialog):
     def __init__(self):
         super(TemplateList, self).__init__()
         uic.loadUi("package/ui/TemplateList.ui", self)
+        self.df = None
 
         # Definir widgets
         self.btnBack = self.findChild(QPushButton, "btnBack")
-        self.btnNext = self.findChild(QPushButton, "btnNext")
         self.scroll = self.findChild(QScrollArea, "scrollArea")
         self.widget = self.findChild(QWidget, "scrollAreaWidgetContents")
         self.vbox = QVBoxLayout()
         self.loadTemplates()
 
         self.btnBack.clicked.connect(self.goBack)
-        self.btnNext.clicked.connect(self.goNext)
 
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
@@ -24,10 +23,12 @@ class TemplateList(QDialog):
         self.nextScreen = nextScreen
 
     def loadTemplates(self):
+        for i in reversed(range(self.vbox.count())): 
+            self.vbox.itemAt(i).widget().setParent(None)
         try:
-            df = pd.read_csv("package/templates/templatesList.csv")
+            self.df = pd.read_csv("package/templates/templatesList.csv")
 
-            for _, row in df.iterrows():
+            for _, row in self.df.iterrows():
                 button = QPushButton(self.scroll)
 
                 # Size
@@ -49,6 +50,8 @@ class TemplateList(QDialog):
                 # Style
                 button.setStyleSheet("border-radius: 10px; background-color: #4361EE")
                 button.setText(f"{row['NombreTaller']}\n{row['Fecha']}")
+
+                button.clicked.connect(lambda: self.goNext(row))
                 self.vbox.addWidget(button)
         except:
             print('No previous templates.')
@@ -58,6 +61,6 @@ class TemplateList(QDialog):
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
 
-    def goNext(self):
-        pass
-        # self.screenController.setCurrentWidget(self.previousScreen)
+    def goNext(self, data):
+        self.nextScreen.setDiplomaData(data)
+        self.screenController.setCurrentWidget(self.nextScreen)

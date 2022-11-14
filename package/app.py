@@ -9,6 +9,8 @@ from package.dialogs.mailFields import MailFields
 from package.dialogs.mailAccount import MailAccount
 from package.dialogs.finalScreen import FinalScreen
 from package.dialogs.templateList import TemplateList
+from package.dialogs.diplomaEditFields import DiplomaEditFields
+from package.dialogs.uploadFilesEdit import FileUploadEdit
 import sys
 
 class MainWindow(QMainWindow):
@@ -29,9 +31,12 @@ class MainWindow(QMainWindow):
         self.btnExit.clicked.connect(self.exit)
 
     def newDiploma(self):
+        screen1_4.setPreviousScreen(screen1_2)
         screenController.setCurrentWidget(screen1_1)
 
     def editDiploma(self):
+        screen2_1.loadTemplates()
+        screen1_4.setPreviousScreen(screen2_3)
         screenController.setCurrentWidget(screen2_1)
 
     def exit(self):
@@ -53,7 +58,10 @@ screen1_5 = SendMailsQuestion()
 screen1_6 = MailAccount()
 screen1_7 = MailFields()
 screen1_8 = FinalScreen()
+
 screen2_1 = TemplateList()
+screen2_2 = DiplomaEditFields()
+screen2_3 = FileUploadEdit()
 
 screen1_1.setNavigation(screenController, previousScreen = screen0, nextScreen = screen1_2)
 screen1_2.setNavigation(screenController, previousScreen = screen1_1, nextScreen = screen1_3)
@@ -64,7 +72,9 @@ screen1_6.setNavigation(screenController, previousScreen = screen1_5, nextScreen
 screen1_7.setNavigation(screenController, previousScreen = screen1_6, nextScreen = screen1_8)
 screen1_8.setNavigation(screenController, previousScreen = screen1_5, nextScreen = screen0)
 
-screen2_1.setNavigation(screenController, previousScreen = screen0, nextScreen = None)
+screen2_1.setNavigation(screenController, previousScreen = screen0, nextScreen = screen2_2)
+screen2_2.setNavigation(screenController, previousScreen = screen2_1, nextScreen = screen2_3)
+screen2_3.setNavigation(screenController, previousScreen = screen2_2, nextScreen = screen1_4, mailScreen = screen1_7, finalScreen = screen1_8)
 
 # Main screen
 screenController.addWidget(screen0)
@@ -81,6 +91,8 @@ screenController.addWidget(screen1_8)
 
 # Edit diploma process
 screenController.addWidget(screen2_1)
+screenController.addWidget(screen2_2)
+screenController.addWidget(screen2_3)
 
 screenController.show()
 

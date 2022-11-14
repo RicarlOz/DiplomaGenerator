@@ -30,6 +30,9 @@ class PreviewDiploma(QDialog):
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
 
+    def setPreviousScreen(self, screen):
+        self.previousScreen = screen
+
     def reloadPDF(self):
         self.pdfViewer.reload()
 
