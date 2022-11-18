@@ -698,8 +698,55 @@ QSpinBox::down-arrow {
        </item>
        <item>
         <layout class="QHBoxLayout" name="hlButton">
+         <property name="leftMargin">
+          <number>600</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QPushButton" name="btnAddFont">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Yu Gothic UI</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(93, 93, 93);
+border-radius: 10px</string>
+           </property>
+           <property name="text">
+            <string>Añadir fuente</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="topMargin">
+          <number>25</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btnBack">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -721,11 +768,11 @@ QSpinBox::down-arrow {
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(93, 93, 93);
+            <string notr="true">background-color: #242331;
 border-radius: 10px</string>
            </property>
            <property name="text">
-            <string>Añadir fuente</string>
+            <string>Regresar a pantalla anterior</string>
            </property>
           </widget>
          </item>
@@ -757,41 +804,6 @@ border-radius: 10px</string>
            </property>
            <property name="text">
             <string>Siguiente</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QPushButton" name="btnBack">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>250</width>
-             <height>60</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Yu Gothic UI</family>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: #242331;
-border-radius: 10px</string>
-           </property>
-           <property name="text">
-            <string>Regresar a pantalla anterior</string>
            </property>
           </widget>
          </item>
