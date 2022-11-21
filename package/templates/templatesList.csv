@@ -1,0 +1,4 @@
+Fecha,NombreTaller,ImageDesign,PDFSize,PDFOrientation,NombreFont,NombreColor,NombreSize,DescripcionText,DescripcionFont,DescripcionColor,DescripcionSize,DateText,DateFont,DateColor,DateSize
+13-11-2022,EVENTO 1,package/templateImages/AxtaTeen2022-11-13_16-38-27.jpg,Legal,R,Roboto-Black,"85, 0, 255",20,ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ABCDEF ,Courier,"0, 0, 0",16,11/11/1022,Times,"0, 0, 0",13
+13-11-2022,EVENTO 2,package/templateImages/AxtaTeen2022-11-13_18-11-36.jpg,Letter,C,Arial,"85, 0, 255",16,,Arial,"0, 0, 0",16,,Arial,"255, 0, 0",16
+13-11-2022,EVENTO X,package/templateImages/AxtaTeen2022-11-13_18-11-362022-11-13_20-23-37.jpg,Letter,C,Arial,"85, 0, 255",16,NUEVA DESCRIPCION,Arial,"0, 0, 0",16,AYER,Arial,"255, 0, 0",16
