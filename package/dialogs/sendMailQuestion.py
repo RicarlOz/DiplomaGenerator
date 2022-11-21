@@ -18,12 +18,14 @@ class SendMailsQuestion(QDialog):
         self.btnYes.clicked.connect(lambda: self.selectOption(True))
         self.btnNo.clicked.connect(lambda: self.selectOption(False))
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, mailScreen, finalScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.mailScreen = mailScreen
         self.finalScreen = finalScreen
 
+    # Funcion para saber que camino tomar si el usuario decide enviar correos o guardar local y acabar 
     def selectOption(self, sendMail):
         if sendMail:
             self.screenController.setCurrentWidget(self.mailScreen)
@@ -31,6 +33,7 @@ class SendMailsQuestion(QDialog):
             self.finalScreen.openFolder()
             self.screenController.setCurrentWidget(self.finalScreen)
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.previousScreen.reloadPDF()
         self.screenController.setCurrentWidget(self.previousScreen)

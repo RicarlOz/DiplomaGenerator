@@ -25,6 +25,7 @@ class FileUploadEdit(QDialog):
         self.btnGoBack.clicked.connect(self.goBack)
         self.btnPreviewTemplate.clicked.connect(self.previewTemplate)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen, mailScreen, finalScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
@@ -32,6 +33,7 @@ class FileUploadEdit(QDialog):
         self.mailScreen = mailScreen
         self.finalScreen = finalScreen
 
+    # Funcion para pasar valores
     def setDiplomaFields(self, nombreTaller, namesAttributes, descriptionAttributes, dateAttributes, pdfSize, orientation):
         self.nombreTaller = nombreTaller
         self.namesAttributes = namesAttributes
@@ -40,9 +42,11 @@ class FileUploadEdit(QDialog):
         self.pdfSize = pdfSize
         self.orientation = orientation
 
+    # Funcion para pasar la direccion donde existe al imagen
     def setImageDesignPath(self, imgDesignPath):
         self.imgDesignPath = imgDesignPath
 
+    # Funcion para seleccionar el archivo de excel y guardar elementos del archivo
     def selectExcel(self):
         file = QFileDialog.getOpenFileName(filter="*.xlsx *.xls")
         self.ssPath = file[0]
@@ -78,9 +82,11 @@ class FileUploadEdit(QDialog):
         for item in nameMailList:
             mailingList.append(item[1])
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
         
+    # Funcion para mostrar los pdfs con la informacion recibida hasta el momento, sin guardarlos ni enviarlos   
     def previewTemplate(self):
         global nameList, nameMailList, mailingList
         

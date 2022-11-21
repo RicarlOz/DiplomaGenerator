@@ -14,7 +14,8 @@ class FinalScreen(QDialog):
         self.btnNext = self.findChild(QPushButton, "btnNext")
         
         self.btnNext.clicked.connect(self.goNext)
-
+    
+    # Funcion para saber donde guardar/crear los diplomas
     def setDiplomasPath(self, diplomasPath):
         self.diplomasPath = diplomasPath
         self.lbPath.setText(os.getcwd() + diplomasPath)
@@ -22,10 +23,12 @@ class FinalScreen(QDialog):
     def openFolder(self):
         os.startfile(self.diplomasPath)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
 
+    # Funcion para cambiar de pantalla a la que tiene delante
     def goNext(self):
         self.screenController.setCurrentWidget(self.nextScreen)

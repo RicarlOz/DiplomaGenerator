@@ -64,11 +64,13 @@ class DiplomaFields(QDialog):
         self.btnNext.clicked.connect(self.submit)
         self.btnBack.clicked.connect(self.goBack)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
 
+    # Funcion para guardar el tamaño de letra 
     def sizeChange(self, type):
         global namesAttributes, descriptionAttributes, dateAttributes
         if type == "Name":
@@ -78,6 +80,7 @@ class DiplomaFields(QDialog):
         if type == "Date":
             dateAttributes.size = self.sbSizeDate.value()
 
+    # Funcion para guardar el color de letra 
     def selectColor(self, type):
         global namesAttributes, descriptionAttributes, dateAttributes
         fontColor = QColorDialog.getColor()
@@ -92,6 +95,7 @@ class DiplomaFields(QDialog):
             dateAttributes.color = fontColor.getRgb()
             self.btnColorDate.setStyleSheet(f'''background-color: rgb({dateAttributes.color[0]}, {dateAttributes.color[1]}, {dateAttributes.color[2]}); border-radius: 10px;''')
 
+    # Funcion para agregar un font en la lista dropdown
     def addFont(self):
         file = QFileDialog.getOpenFileName(filter="*.ttf")
         path = file[0]
@@ -125,6 +129,7 @@ class DiplomaFields(QDialog):
         self.cbFontDesc.setCurrentIndex(self.availableFonts.index(fileName[:-4]))
         self.cbFontDate.setCurrentIndex(self.availableFonts.index(fileName[:-4]))
     
+    # Funcion para guardar la informacion de los campos de entrada junto con sus atributos personalizados
     def submit(self):
         global namesAttributes, descriptionAttributes, dateAttributes, nombreTaller
 
@@ -140,5 +145,6 @@ class DiplomaFields(QDialog):
         self.nextScreen.setDiplomaFields(nombreTaller, namesAttributes, descriptionAttributes, dateAttributes)
         self.screenController.setCurrentWidget(self.nextScreen)
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)

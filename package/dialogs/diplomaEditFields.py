@@ -21,14 +21,17 @@ class DiplomaEditFields(QDialog):
         self.btnNext.clicked.connect(self.goNext)
         self.btnBack.clicked.connect(self.goBack)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
 
+
     def setDiplomaData(self, data):
         self.diplomaData = data
         
+    # Funcion para cambiar de pantalla a la que tiene delante y guardar todos los atributos que se le puede dar input
     def goNext(self):
         
         strEvent = self.tfName.text()
@@ -47,5 +50,6 @@ class DiplomaEditFields(QDialog):
         self.nextScreen.setImageDesignPath(self.diplomaData['ImageDesign'])
         self.screenController.setCurrentWidget(self.nextScreen)
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)

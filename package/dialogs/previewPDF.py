@@ -25,6 +25,7 @@ class PreviewDiploma(QDialog):
         self.btnBack.clicked.connect(self.goBack)
         self.btnNext.clicked.connect(self.goNext)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
@@ -36,8 +37,10 @@ class PreviewDiploma(QDialog):
     def reloadPDF(self):
         self.pdfViewer.reload()
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
 
+    # Funcion para cambiar de pantalla a la que tiene delante
     def goNext(self):
         self.screenController.setCurrentWidget(self.nextScreen)
