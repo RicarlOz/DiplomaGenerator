@@ -42,7 +42,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
         if pdfSize == 'Letter':
             pdf.image(imgDesign, 0, 0, 279.4, 215.9)
         elif pdfSize == 'Legal':
-            pdf.image(imgDesign, 0, 0, 356, 216)
+            pdf.image(imgDesign, 0, 0, 356, 220)
         else: #A4
             pdf.image(imgDesign, 0, 0, 297, 210)
 
@@ -50,17 +50,35 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
         if orientation == 'L':
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
-            pdf.set_xy(24, 82)
+            # pdf.set_xy(24, 82)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 82)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 82)
+            else:
+                pdf.set_xy(24, 82)
             pdf.cell(165, 10, txt=name, border=True, align='L')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
-            pdf.set_xy(24, 100)
+            # pdf.set_xy(24, 100)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 100)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 105)
+            else:
+                pdf.set_xy(24, 100)
             pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='L')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
-            pdf.set_xy(24, 150)
+            # pdf.set_xy(24, 150)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 150)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 145)
+            else:
+                pdf.set_xy(24, 135)
             pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='L')
             
         ## Right
@@ -68,33 +86,69 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
             pdf.set_xy(92 - 25, 82)
+            if pdfSize == 'Letter':
+                pdf.set_xy(92 - 25, 82)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(180 - 25, 84)
+            else:
+                pdf.set_xy(105 - 1, 82)
             pdf.cell(165, 10, txt=name, border=True, align='R')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
             pdf.set_xy(92 - 25, 100)
+            if pdfSize == 'Letter':
+                pdf.set_xy(92 - 25, 100)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(180 - 25, 105)
+            else:
+                pdf.set_xy(105 - 1, 105)
             pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='R')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
-            pdf.set_xy(172 - 25, 150)
+            # pdf.set_xy(172 - 25, 150)
+            if pdfSize == 'Letter':
+                pdf.set_xy(172 - 25, 150)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(235 - 1, 145)
+            else:
+                pdf.set_xy(190 - 1, 135)
             pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='R')
 
         ## Center
         else:
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
-            pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            # pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            if pdfSize == 'Letter':
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            elif pdfSize == 'Legal':
+                pdf.set_xy((345 / 2 - width / 2) + 10, 100)
+            else:
+                pdf.set_xy((280 / 2 - width / 2) + 10, 95)
             pdf.cell(width, 10, txt=name, border=False, align='C')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
-            pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            # pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            if pdfSize == 'Letter':
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            elif pdfSize == 'Legal':
+                pdf.set_xy((345 / 2 - width / 2) + 10, 120)
+            else:
+                pdf.set_xy((280 / 2 - width / 2) + 10, 110)
             pdf.multi_cell(width, 5, txt=descriptionAttributes.text, border=False, align='C')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
-            pdf.set_xy(180, 195)
+            # pdf.set_xy(180, 195)
+            if pdfSize == 'Letter':
+                pdf.set_xy(180, 195)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(240, 180)
+            else:
+                pdf.set_xy(200, 167)
             pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='C')
             
         if name != names[-1]:
@@ -143,7 +197,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
         if pdfSize == 'Letter':
             pdf.image(imgDesign, 0, 0, 279.4, 215.9)
         elif pdfSize == 'Legal':
-            pdf.image(imgDesign, 0, 0, 356, 216)
+            pdf.image(imgDesign, 0, 0, 356, 220)
         else: #A4
             pdf.image(imgDesign, 0, 0, 297, 210)
 
@@ -152,16 +206,34 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
             pdf.set_xy(24, 82)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 82)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 82)
+            else:
+                pdf.set_xy(24, 82)
             pdf.cell(165, 10, txt=name, border=True, align='L')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
-            pdf.set_xy(24, 100)
+            # pdf.set_xy(24, 100)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 100)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 105)
+            else:
+                pdf.set_xy(24, 100)
             pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='L')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
-            pdf.set_xy(24, 150)
+            # pdf.set_xy(24, 150)
+            if pdfSize == 'Letter':
+                pdf.set_xy(24, 150)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(38, 145)
+            else:
+                pdf.set_xy(24, 135)
             pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='L')
 
             
@@ -170,17 +242,35 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
         elif orientation == 'R':
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
-            pdf.set_xy(92 - 25, 82)
+            # pdf.set_xy(92 - 25, 82)
+            if pdfSize == 'Letter':
+                pdf.set_xy(92 - 25, 82)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(180 - 25, 84)
+            else:
+                pdf.set_xy(105 - 1, 82)
             pdf.cell(165, 10, txt=name, border=True, align='R')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
             pdf.set_xy(92 - 25, 100)
+            if pdfSize == 'Letter':
+                pdf.set_xy(92 - 25, 100)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(180 - 25, 105)
+            else:
+                pdf.set_xy(105 - 1, 105)
             pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='R')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
-            pdf.set_xy(172 - 25, 150)
+            # pdf.set_xy(172 - 25, 150)
+            if pdfSize == 'Letter':
+                pdf.set_xy(172 - 25, 150)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(235 - 1, 145)
+            else:
+                pdf.set_xy(190 - 1, 135)
             pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='R')
 
             
@@ -189,17 +279,35 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
         else:
             pdf.set_font(namesAttributes.font, '', namesAttributes.size)
             pdf.set_text_color(namesAttributes.color[0], namesAttributes.color[1], namesAttributes.color[2])
-            pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            # pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            if pdfSize == 'Letter':
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 120)
+            elif pdfSize == 'Legal':
+                pdf.set_xy((345 / 2 - width / 2) + 10, 100)
+            else:
+                pdf.set_xy((280 / 2 - width / 2) + 10, 95)
             pdf.cell(width, 10, txt=name, border=False, align='C')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
-            pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            # pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            if pdfSize == 'Letter':
+                pdf.set_xy((279.4 / 2 - width / 2) + 10, 135)
+            elif pdfSize == 'Legal':
+                pdf.set_xy((345 / 2 - width / 2) + 10, 120)
+            else:
+                pdf.set_xy((280 / 2 - width / 2) + 10, 110)
             pdf.multi_cell(width, 5, txt=descriptionAttributes.text, border=False, align='C')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
-            pdf.set_xy(180, 195)
+            # pdf.set_xy(180, 195)
+            if pdfSize == 'Letter':
+                pdf.set_xy(180, 195)
+            elif pdfSize == 'Legal':
+                pdf.set_xy(240, 180)
+            else:
+                pdf.set_xy(200, 167)
             pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='C')
 
         pdf.output(diplomasPath + name + ' - ' + eventName + '.pdf')
