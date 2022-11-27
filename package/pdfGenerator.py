@@ -57,7 +57,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(38, 82)
             else:
                 pdf.set_xy(24, 82)
-            pdf.cell(165, 10, txt=name, border=True, align='L')
+            pdf.cell(165, 10, txt=name, border=False, align='L')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
@@ -68,7 +68,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(38, 105)
             else:
                 pdf.set_xy(24, 100)
-            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='L')
+            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=False, align='L')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
@@ -79,7 +79,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(38, 145)
             else:
                 pdf.set_xy(24, 135)
-            pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='L')
+            pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='L')
             
         ## Right
         elif orientation == 'R':
@@ -92,7 +92,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(180 - 25, 84)
             else:
                 pdf.set_xy(105 - 1, 82)
-            pdf.cell(165, 10, txt=name, border=True, align='R')
+            pdf.cell(165, 10, txt=name, border=False, align='R')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
@@ -103,7 +103,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(180 - 25, 105)
             else:
                 pdf.set_xy(105 - 1, 105)
-            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='R')
+            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=False, align='R')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
@@ -114,7 +114,7 @@ def previewPDF(names: list, namesAttributes: DataAttributes, descriptionAttribut
                 pdf.set_xy(235 - 1, 145)
             else:
                 pdf.set_xy(190 - 1, 135)
-            pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='R')
+            pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='R')
 
         ## Center
         else:
@@ -212,7 +212,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(38, 82)
             else:
                 pdf.set_xy(24, 82)
-            pdf.cell(165, 10, txt=name, border=True, align='L')
+            pdf.cell(165, 10, txt=name, border=False, align='L')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
@@ -223,7 +223,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(38, 105)
             else:
                 pdf.set_xy(24, 100)
-            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='L')
+            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=False, align='L')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
@@ -234,7 +234,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(38, 145)
             else:
                 pdf.set_xy(24, 135)
-            pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='L')
+            pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='L')
 
             
             
@@ -249,7 +249,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(180 - 25, 84)
             else:
                 pdf.set_xy(105 - 1, 82)
-            pdf.cell(165, 10, txt=name, border=True, align='R')
+            pdf.cell(165, 10, txt=name, border=False, align='R')
 
             pdf.set_font(descriptionAttributes.font, '', descriptionAttributes.size)
             pdf.set_text_color(descriptionAttributes.color[0], descriptionAttributes.color[1], descriptionAttributes.color[2])
@@ -260,7 +260,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(180 - 25, 105)
             else:
                 pdf.set_xy(105 - 1, 105)
-            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=True, align='R')
+            pdf.multi_cell(165, 5, txt=descriptionAttributes.text, border=False, align='R')
 
             pdf.set_font(dateAttributes.font, '', dateAttributes.size)
             pdf.set_text_color(dateAttributes.color[0], dateAttributes.color[1], dateAttributes.color[2])
@@ -271,7 +271,7 @@ def individualPDFs(eventName: str, names: list, namesAttributes: DataAttributes,
                 pdf.set_xy(235 - 1, 145)
             else:
                 pdf.set_xy(190 - 1, 135)
-            pdf.cell(85, 15, txt=dateAttributes.text, border=True, align='R')
+            pdf.cell(85, 15, txt=dateAttributes.text, border=False, align='R')
 
             
 
