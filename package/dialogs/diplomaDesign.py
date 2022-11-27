@@ -41,18 +41,21 @@ class SeleccionTemplate(QDialog):
 
         self.btnNext.clicked.connect(self.goNext)
         self.btnBack.clicked.connect(self.goBack)
-
+    
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
         self.nextScreen = nextScreen
 
+    # Funcion para pasar valores
     def setDiplomaFields(self, nombreTaller, namesAttributes, descriptionAttributes, dateAttributes):
         self.nombreTaller = nombreTaller
         self.namesAttributes = namesAttributes
         self.descriptionAttributes = descriptionAttributes
         self.dateAttributes = dateAttributes
 
+    # Funcion guardar la posicion en la que muestra la informacion
     def selectTemplate(self, selectedOrientation):
         if selectedOrientation == 'L':
             self.rbLeft.setChecked(True)
@@ -61,6 +64,7 @@ class SeleccionTemplate(QDialog):
         else:
             self.rbCenter.setChecked(True)
     
+    # Funcion guardar el tamaño del diploma
     def selectSize(self, selectedSize):
         if selectedSize == 'letter':
             self.rbCarta.setChecked(True)
@@ -69,9 +73,11 @@ class SeleccionTemplate(QDialog):
         else:
             self.rbA4.setChecked(True)
 
+    # Funcion para cambiar de pantalla a la que tiene previa
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
         
+    # Funcion para cambiar de pantalla a la que tiene delante
     def goNext(self):
         global orientation, pdfSize
 

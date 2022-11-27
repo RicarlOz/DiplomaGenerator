@@ -30,6 +30,7 @@ class MailFields(QDialog):
         self.btnBack.clicked.connect(self.goBack)
         self.btnNext.clicked.connect(self.submit)
 
+    # Funcion para definir el orden de las pantallas de acuerdo a la actual
     def setNavigation(self, screenController, previousScreen, nextScreen):
         self.screenController = screenController
         self.previousScreen = previousScreen
@@ -47,10 +48,12 @@ class MailFields(QDialog):
         self.mailingList = mailingList
         self.nameMailList = nameMailList
         self.nombreTaller = nombreTaller
-        
+
+    # Funcion para cambiar de pantalla a la que tiene previa 
     def goBack(self):
         self.screenController.setCurrentWidget(self.previousScreen)
     
+    # Funcion para crear y enviar correos 
     def submit(self):
         global testMails
 
